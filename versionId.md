@@ -67,8 +67,8 @@ Buka di browser: http://localhost:3000
 
 # Additional Info
 
-Fitur Sortir, Cari, dan Halaman tersedia di path '/produk'.
-Fitur Multibahasa tersedia di path '/'
+Tersedia Fitur Sortir, Cari, dan Halaman.
+Tersedia Multi Bahasa.
 
 ⸻
 

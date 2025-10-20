@@ -7,19 +7,20 @@
       </div>
       <div class="flex items-center gap-3">
         <div class="relative">
-          <input v-model="q" :placeholder="$t('adminProducts.searchPlaceholder')"
-            class="w-56 rounded-xl border border-gray-200 bg-white px-4 py-2 pl-10 shadow-sm focus:ring-2 focus:ring-sky-400 focus:outline-none transition" />
-          <span class="absolute left-3 top-2.5 text-gray-400">⌕</span>
+          <input
+            v-model="q"
+            :placeholder="$t('adminProducts.searchPlaceholder')"
+            class="w-56 rounded-xl border border-gray-200 bg-white px-4 py-2 pl-10 shadow-sm focus:ring-2 focus:ring-sky-400 focus:outline-none transition"
+          />
         </div>
         <BaseButton style="cursor: pointer;" variant="primary" class="shadow-md hover:shadow-lg" @click="openCreate()">
-          {{ $t('adminProducts.newBtn') }}</BaseButton>
+          {{ $t('adminProducts.newBtn') }}
+        </BaseButton>
       </div>
     </div>
 
     <!-- Loading / Error -->
-    <div v-if="pending" class="flex justify-center py-16">
-      <Spinner />
-    </div>
+    <div v-if="pending" class="flex justify-center py-16"><Spinner /></div>
     <EmptyState v-else-if="error">{{ $t('adminProducts.error') }}</EmptyState>
 
     <!-- Table -->
@@ -27,21 +28,17 @@
       <div class="overflow-x-auto">
         <table class="min-w-full border-separate border-spacing-0">
           <thead class="bg-gray-50 sticky top-0 z-10">
-            <tr
-              class="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:text-sm [&>th]:font-semibold [&>th]:text-gray-600">
+            <tr class="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:text-sm [&>th]:font-semibold [&>th]:text-gray-600">
               <th class="w-12">{{ $t('adminProducts.table.no') }}</th>
               <th class="w-20">{{ $t('adminProducts.table.image') }}</th>
               <th class="cursor-pointer select-none" @click="toggleSort('title')">
-                {{ $t('adminProducts.table.title') }}
-                <SortIcon :active="sortKey === 'title'" :dir="sortDir" />
+                {{ $t('adminProducts.table.title') }} <SortIcon :active="sortKey === 'title'" :dir="sortDir" />
               </th>
               <th class="cursor-pointer select-none w-28" @click="toggleSort('price')">
-                {{ $t('adminProducts.table.price') }}
-                <SortIcon :active="sortKey === 'price'" :dir="sortDir" />
+                {{ $t('adminProducts.table.price') }} <SortIcon :active="sortKey === 'price'" :dir="sortDir" />
               </th>
               <th class="cursor-pointer select-none w-44" @click="toggleSort('category')">
-                {{ $t('adminProducts.table.category') }}
-                <SortIcon :active="sortKey === 'category'" :dir="sortDir" />
+                {{ $t('adminProducts.table.category') }} <SortIcon :active="sortKey === 'category'" :dir="sortDir" />
               </th>
               <th class="w-40 text-right">{{ $t('adminProducts.table.actions') }}</th>
             </tr>
@@ -56,12 +53,17 @@
               <td class="px-4 py-3">
                 <p class="font-medium text-gray-800 line-clamp-2">{{ p.title }}</p>
               </td>
-              <td class="px-4 py-3 font-semibold text-sky-700">${{ format(p.price) }}</td>
+              <td class="px-4 py-3 font-semibold text-sky-700">
+                {{ displayPrice(p.price) }}
+              </td>
               <td class="px-4 py-3 text-sm text-gray-600 capitalize">{{ p.category }}</td>
               <td class="px-4 py-3">
                 <div class="flex justify-end gap-2">
-                  <BaseButton style="cursor: pointer;" size="sm" @click="openEdit(p)">{{ $t('adminProducts.table.edit') }}</BaseButton>
-                  <BaseButton style="cursor: pointer;" size="sm" variant="ghost" @click="remove(p.id)">{{ $t('adminProducts.table.delete') }}
+                  <BaseButton style="cursor: pointer;" size="sm" @click="openEdit(p)">
+                    {{ $t('adminProducts.table.edit') }}
+                  </BaseButton>
+                  <BaseButton style="cursor: pointer;" size="sm" variant="ghost" @click="remove(p.id)">
+                    {{ $t('adminProducts.table.delete') }}
                   </BaseButton>
                 </div>
               </td>
@@ -79,7 +81,8 @@
       <!-- Pagination -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-gray-100 px-4 py-3">
         <p class="text-sm text-gray-600">
-          {{ $t('adminProducts.pagination.showing') }} <b>{{ startRow + 1 }}</b>–<b>{{ endRow }}</b> of <b>{{ filtered.length }}</b>
+          {{ $t('adminProducts.pagination.showing') }}
+          <b>{{ startRow + 1 }}</b>–<b>{{ endRow }}</b> of <b>{{ filtered.length }}</b>
         </p>
 
         <div class="flex items-center gap-3">
@@ -90,22 +93,33 @@
           </select>
 
           <div class="flex items-center gap-2 select-none">
-            <button style="cursor: pointer;"
+            <button
+              style="cursor: pointer;"
               class="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 transition disabled:opacity-40"
-              :disabled="page === 1" @click="goPrev">
-               {{ $t('adminProducts.pagination.prev') }}
+              :disabled="page === 1"
+              @click="goPrev"
+            >
+              {{ $t('adminProducts.pagination.prev') }}
             </button>
             <div class="hidden sm:flex items-center gap-1">
-              <button style="cursor: pointer;" v-for="n in pages" :key="n" @click="page = n"
+              <button
+                style="cursor: pointer;"
+                v-for="n in pages"
+                :key="n"
+                @click="page = n"
                 class="w-8 h-8 rounded-md text-sm"
-                :class="n === page ? 'bg-sky-600 text-white' : 'bg-gray-100 hover:bg-gray-200'">
+                :class="n === page ? 'bg-sky-600 text-white' : 'bg-gray-100 hover:bg-gray-200'"
+              >
                 {{ n }}
               </button>
             </div>
-            <button style="cursor: pointer;"
+            <button
+              style="cursor: pointer;"
               class="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 transition disabled:opacity-40"
-              :disabled="page === pages || pages === 0" @click="goNext">
-               {{ $t('adminProducts.pagination.next') }}
+              :disabled="page === pages || pages === 0"
+              @click="goNext"
+            >
+              {{ $t('adminProducts.pagination.next') }}
             </button>
           </div>
         </div>
@@ -113,44 +127,81 @@
     </div>
 
     <!-- Modal Create/Edit -->
-    <dialog ref="dlg" style="inset:0;margin:auto"
-      class="rounded-2xl p-0 border w-full max-w-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm">
+    <dialog
+      ref="dlg"
+      style="inset:0;margin:auto"
+      class="rounded-2xl p-0 border w-full max-w-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm"
+    >
       <form @submit.prevent="save" class="p-6 bg-white rounded-2xl space-y-4 shadow-lg">
         <h2 class="text-xl font-bold text-gray-900 border-b pb-2">
-          {{ form.id ?  $t('adminProducts.modal.editTitle') : $t('adminProducts.modal.newTitle') }}
+          {{ form.id ? $t('adminProducts.modal.editTitle') : $t('adminProducts.modal.newTitle') }}
         </h2>
 
         <div class="grid gap-3">
-          <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.title') }} <span class="text-red-500">*</span></label>
-          <input v-model="form.title" :placeholder="$t('adminProducts.modal.fields.titlePh')"
-            class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-sky-500" required />
+          <label class="text-sm font-medium text-gray-700">
+            {{ $t('adminProducts.modal.fields.title') }} <span class="text-red-500">*</span>
+          </label>
+          <input
+            v-model="form.title"
+            :placeholder="$t('adminProducts.modal.fields.titlePh')"
+            class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            required
+          />
 
-          <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.description') }}</label>
-          <textarea v-model="form.description" :placeholder="$t('adminProducts.modal.fields.descriptionPh')"
-            class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" rows="3" />
+          <label class="text-sm font-medium text-gray-700">
+            {{ $t('adminProducts.modal.fields.description') }}
+          </label>
+          <textarea
+            v-model="form.description"
+            :placeholder="$t('adminProducts.modal.fields.descriptionPh')"
+            class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500"
+            rows="3"
+          />
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.price') }} <span class="text-red-500">*</span></label>
-              <input v-model.number="form.price" type="number" min="0" step="0.01" :placeholder="$t('adminProducts.modal.fields.pricePh')"
-                class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" required />
+              <label class="text-sm font-medium text-gray-700">
+                {{ $t('adminProducts.modal.fields.price') }} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                inputmode="decimal"
+                v-model="priceDisplay"
+                :placeholder="$t('adminProducts.modal.fields.pricePh')"
+                class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500"
+                required
+                @input="onInputPrice"
+                @paste="onPastePrice"
+              />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.category') }}</label>
-              <input v-model="form.category" :placeholder="$t('adminProducts.modal.fields.categoryPh')"
-                class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
+              <label class="text-sm font-medium text-gray-700">
+                {{ $t('adminProducts.modal.fields.category') }}
+              </label>
+              <input
+                v-model="form.category"
+                :placeholder="$t('adminProducts.modal.fields.categoryPh')"
+                class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500"
+              />
             </div>
           </div>
 
-          <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.image') }}</label>
-          <input v-model="form.image" placeholder="https://example.com/image.jpg"
-            class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
+          <label class="text-sm font-medium text-gray-700">
+            {{ $t('adminProducts.modal.fields.image') }}
+          </label>
+          <input
+            v-model="form.image"
+            placeholder="https://example.com/image.jpg"
+            class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500"
+          />
         </div>
 
         <div class="flex gap-2 justify-end pt-4 border-t">
-          <BaseButton style="cursor: pointer;" type="button" variant="ghost" @click="closeDlg">{{ $t('adminProducts.modal.cancel') }}</BaseButton>
+          <BaseButton style="cursor: pointer;" type="button" variant="ghost" @click="closeDlg">
+            {{ $t('adminProducts.modal.cancel') }}
+          </BaseButton>
           <BaseButton style="cursor: pointer;" variant="primary" type="submit" class="shadow-md hover:shadow-lg">
-            {{ saving ? $t('adminProducts.modal.save') :  $t('adminProducts.modal.saving') }}
+            {{ saving ? $t('adminProducts.modal.saving') : $t('adminProducts.modal.save') }}
           </BaseButton>
         </div>
       </form>
@@ -160,10 +211,11 @@
 
 <script setup lang="ts">
 import { h, defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 /** Fetch products */
 const { $api } = useNuxtApp()
-const { data, pending, error, refresh } = await useAsyncData('admin-products', () => $api('/products'))
+const { data, pending, error } = await useAsyncData('admin-products', () => $api('/products'))
 const products = computed<any[]>(() => data.value || [])
 
 /** Search */
@@ -174,12 +226,8 @@ type SortKey = 'title' | 'price' | 'category'
 const sortKey = ref<SortKey>('title')
 const sortDir = ref<'asc' | 'desc'>('asc')
 function toggleSort(k: SortKey) {
-  if (sortKey.value === k) {
-    sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
-  } else {
-    sortKey.value = k
-    sortDir.value = 'asc'
-  }
+  if (sortKey.value === k) sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+  else { sortKey.value = k; sortDir.value = 'asc' }
 }
 
 /** filtered + sorted */
@@ -187,9 +235,9 @@ const filtered = computed(() => {
   const term = q.value.trim().toLowerCase()
   const base = term
     ? products.value.filter((p) =>
-      (p.title || '').toLowerCase().includes(term) ||
-      (p.category || '').toLowerCase().includes(term)
-    )
+        (p.title || '').toLowerCase().includes(term) ||
+        (p.category || '').toLowerCase().includes(term)
+      )
     : products.value
 
   return [...base].sort((a: any, b: any) => {
@@ -217,16 +265,86 @@ const dlg = ref<HTMLDialogElement | null>(null)
 const form = reactive<any>({ id: null, title: '', description: '', price: 0, category: '', image: '' })
 const saving = ref(false)
 
+/** I18n & Currency */
+const { locale } = useI18n()
+const CONVERT_MODE = true
+const USD_TO_IDR = 15500
+const IDR_TO_USD = 1 / USD_TO_IDR
+
+const currency = computed<'IDR' | 'USD'>(() => (locale.value === 'id' ? 'IDR' : 'USD'))
+const formatLocale = computed(() => (currency.value === 'USD' ? 'en-US' : 'id-ID'))
+
+function formatCurrencyForDisplay(baseUsdValue: number) {
+  const v = Number(baseUsdValue || 0)
+  const displayValue = CONVERT_MODE
+    ? (currency.value === 'IDR' ? v * USD_TO_IDR : v)
+    : v
+
+  return new Intl.NumberFormat(formatLocale.value, {
+    style: 'currency',
+    currency: currency.value,
+    minimumFractionDigits: currency.value === 'USD' ? 2 : 0
+  }).format(displayValue)
+}
+
+function displayPrice(baseUsdValue: number) {
+  return formatCurrencyForDisplay(baseUsdValue)
+}
+
+function parseDisplayToUsd(rawInput: string): number {
+  const cleaned = rawInput.replace(/[^\d.,-]/g, '')
+  let normalized = cleaned
+
+  if (formatLocale.value === 'id-ID') {
+    normalized = normalized.replace(/\./g, '').replace(',', '.')
+  } else {
+    normalized = normalized.replace(/,/g, '')
+  }
+
+  const localNumber = Number(normalized || '0')
+  if (isNaN(localNumber)) return 0
+
+  if (CONVERT_MODE && currency.value === 'IDR') {
+    return Number((localNumber * IDR_TO_USD).toFixed(6))
+  }
+  return localNumber
+}
+
+const priceDisplay = ref('')
+
+watch([() => form.price, currency], ([val]) => {
+  priceDisplay.value = formatCurrencyForDisplay(Number(val || 0))
+}, { immediate: true })
+
+function onInputPrice(e: Event) {
+  const input = e.target as HTMLInputElement
+  const usdValue = parseDisplayToUsd(input.value)
+  form.price = usdValue
+  priceDisplay.value = formatCurrencyForDisplay(usdValue)
+}
+
+function onPastePrice(e: ClipboardEvent) {
+  e.preventDefault()
+  const t = e.clipboardData?.getData('text') ?? ''
+  const usdValue = parseDisplayToUsd(t)
+  form.price = usdValue
+  priceDisplay.value = formatCurrencyForDisplay(usdValue)
+}
+
+/** Dialog Controls */
 function openCreate() {
   Object.assign(form, { id: null, title: '', description: '', price: 0, category: '', image: '' })
+  priceDisplay.value = formatCurrencyForDisplay(form.price)
   dlg.value?.showModal()
 }
 function openEdit(p: any) {
   Object.assign(form, p)
+  priceDisplay.value = formatCurrencyForDisplay(form.price)
   dlg.value?.showModal()
 }
 function closeDlg() { dlg.value?.close() }
 
+/** Notifier */
 function notify(msg: string, type: 'success' | 'error' = 'success') {
   const el = document.createElement('div')
   el.className = [
@@ -239,25 +357,7 @@ function notify(msg: string, type: 'success' | 'error' = 'success') {
   setTimeout(() => el.remove(), 1800)
 }
 
-// async function save() {
-//   saving.value = true
-//   try {
-//     if (form.id) {
-//       await $api(`/products/${form.id}`, { method: 'PUT', body: form })
-//     } else {
-//       await $api('/products', { method: 'POST', body: form })
-//     }
-//     closeDlg()
-//     await refresh()
-//   } finally { saving.value = false }
-// }
-
-// async function remove(id: number) {
-//   if (!confirm('Yakin ingin menghapus produk ini?')) return
-//   await $api(`/products/${id}`, { method: 'DELETE' })
-//   await refresh()
-// }
-
+/** Save */
 async function save() {
   if (!form.title?.trim()) return notify('Harap isi judul produk.', 'error')
   if (form.price <= 0) return notify('Harga produk harus lebih dari 0.', 'error')
@@ -277,62 +377,45 @@ async function save() {
       newData = res.data || res
       products.value.unshift(newData)
     }
-
-    const message = res.message || res.statusText || 'Berhasil disimpan!'
-    notify(message, 'success')
+    notify(res.message || res.statusText || 'Berhasil disimpan!', 'success')
     closeDlg()
   } catch (e: any) {
-    const errMsg = e?.data?.message || e?.message || 'Gagal menyimpan data.'
-    notify(errMsg, 'error')
+    notify(e?.data?.message || e?.message || 'Gagal menyimpan data.', 'error')
   } finally {
     saving.value = false
   }
 }
 
+/** Remove */
 async function remove(id: number) {
   if (!confirm('Yakin ingin menghapus produk ini?')) return
   try {
     const res = await $api(`/products/${id}`, { method: 'DELETE' })
     const idx = products.value.findIndex(p => p.id === id)
     if (idx !== -1) products.value.splice(idx, 1)
-    const message = res.message || res.statusText || 'Produk berhasil dihapus.'
-    notify(message, 'success')
+    notify(res.message || res.statusText || 'Produk berhasil dihapus.', 'success')
   } catch (e: any) {
-    const errMsg = e?.data?.message || e?.message || 'Gagal menghapus produk.'
-    notify(errMsg, 'error')
+    notify(e?.data?.message || e?.message || 'Gagal menghapus produk.', 'error')
   }
 }
 
 /** DynamicSortIcon */
 const SortIcon = defineComponent({
-  props: {
-    active: { type: Boolean, default: false },
-    dir: { type: String as () => 'asc' | 'desc', default: 'asc' }
-  },
+  props: { active: { type: Boolean, default: false }, dir: { type: String as () => 'asc' | 'desc', default: 'asc' } },
   setup(props) {
     return () =>
-      h(
-        'span',
-        {
-          class: [
-            'inline-block align-middle ml-1 text-xs',
-            props.active ? 'text-sky-600' : 'text-gray-300'
-          ]
-        },
+      h('span',
+        { class: ['inline-block align-middle ml-1 text-xs', props.active ? 'text-sky-600' : 'text-gray-300'] },
         props.active ? (props.dir === 'asc' ? '▲' : '▼') : '△'
       )
   }
 })
-
-function format(n: number) { return Number(n).toFixed(2) }
 </script>
 
 <style lang="css" scoped>
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in-up {
-  animation: fade-in-up 0.25s ease-out;
-}
+.animate-fade-in-up { animation: fade-in-up 0.25s ease-out; }
 </style>
