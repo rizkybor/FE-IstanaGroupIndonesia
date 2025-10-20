@@ -71,8 +71,16 @@ function addToCart(item: any) {
     router.push(`/login?next=${encodeURIComponent(route.fullPath)}`)
     return
   }
-  cart.value.push({ ...item, qty: 1 })
-  toast('Added to cart')
+
+  const existing = cart.value.find(p => p.id === item.id)
+
+  if (existing) {
+    existing.qty += 1
+    toast(`Updated quantity: ${existing.qty}`)
+  } else {
+    cart.value.push({ ...item, qty: 1 })
+    toast('Added to cart')
+  }
 }
 
 function toast(msg: string) {
