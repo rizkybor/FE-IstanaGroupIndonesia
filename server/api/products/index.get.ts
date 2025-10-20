@@ -1,8 +1,8 @@
-import { $fetch } from 'ofetch'
+// server/api/products/index.get.ts
+import { $fetch } from "ofetch";
+import { fsBase } from "../../../app/utils/fakestore";
+
 export default defineEventHandler(async (event) => {
-  const { fakestoreApi } = useRuntimeConfig()
-  const token = getCookie(event, 'fs_token')
-  return await $fetch(`${fakestoreApi}/products`, {
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  })
-})
+  const { base, headers } = fsBase(event);
+  return await $fetch(`${base}/products`, { headers });
+});

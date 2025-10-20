@@ -1,8 +1,9 @@
-// server/api/users/index.get.ts
+// server/api/products/index.post.ts
 import { $fetch } from 'ofetch'
 import { fsBase } from "../../../app/utils/fakestore";
 
 export default defineEventHandler(async (event) => {
   const { base, headers } = fsBase(event)
-  return await $fetch(`${base}/users`, { headers })
+  const body = await readBody(event)
+  return await $fetch(`${base}/products`, { method: 'POST', headers, body })
 })

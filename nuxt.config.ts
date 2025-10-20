@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   vite: { plugins: [tailwindcss()] },
   runtimeConfig: {
-    fakestoreApi: 'https://fakestoreapi.com',
+    fakestoreApi: process.env.FAKESTORE_API,
     public: {
       appName: 'FakeStore Nuxt',
     },

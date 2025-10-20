@@ -1,3 +1,4 @@
+// server/api/carts/index.get.ts
 import { $fetch } from 'ofetch'
 export default defineEventHandler(async (event) => {
   const { fakestoreApi } = useRuntimeConfig()
