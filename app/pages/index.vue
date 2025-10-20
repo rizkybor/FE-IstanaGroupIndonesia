@@ -1,67 +1,87 @@
 <template>
-  <div class="grid gap-6 md:grid-cols-2 items-start">
-    <div>
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-2">{{ appName }}</h1>
-      <p class="text-gray-600">Demo mini-app Nuxt: login, products, detail, cart, admin.</p>
+  <section class="min-h-[80vh] flex flex-col md:flex-row items-center justify-between gap-10 px-6 md:px-12 py-12 bg-gradient-to-br from-sky-50 to-white">
+    <!-- Left -->
+    <div class="flex-1 space-y-6">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+          {{ appName }}
+        </h1>
+        <p class="mt-3 text-gray-600 text-lg">
+          Demo mini-app Nuxt dengan autentikasi, daftar produk, detail, cart, dan admin panel yang simpel & responsif.
+        </p>
+      </div>
 
-      <div class="mt-6 flex flex-wrap gap-3">
+      <div class="flex flex-wrap gap-4 pt-4">
         <NuxtLink to="/products">
-          <BaseButton variant="primary">Browse Products</BaseButton>
+          <BaseButton variant="primary" class="px-6 py-3 text-lg">Browse Products</BaseButton>
         </NuxtLink>
 
         <NuxtLink v-if="!logged" to="/login">
-          <BaseButton>Login</BaseButton>
+          <BaseButton class="px-6 py-3 text-lg">Login</BaseButton>
         </NuxtLink>
 
         <NuxtLink v-else to="/cart">
-          <BaseButton>Cart</BaseButton>
+          <BaseButton class="px-6 py-3 text-lg">Cart</BaseButton>
         </NuxtLink>
 
         <NuxtLink v-if="isAdmin" to="/admin">
-          <BaseButton>Admin Dashboard</BaseButton>
+          <BaseButton variant="secondary" class="px-6 py-3 text-lg">Admin Dashboard</BaseButton>
         </NuxtLink>
 
-        <BaseButton v-if="logged" variant="ghost" @click="handleLogout">
+        <BaseButton v-if="logged" variant="ghost" @click="handleLogout" class="px-6 py-3 text-lg">
           Logout
         </BaseButton>
       </div>
 
-      <p v-if="logged" class="mt-3 text-sm text-gray-500">
-        Logged in as: <b>{{ user?.username }}</b> — role: <b>{{ role }}</b>
+      <p v-if="logged" class="text-sm text-gray-500 mt-2">
+        Logged in as <b>{{ user?.username }}</b> — role: <b>{{ role }}</b>
       </p>
     </div>
 
-    <div class="rounded-2xl border bg-white p-6">
-      <p class="font-semibold mb-3">Akun Demo</p>
+    <!-- Right: Demo account box -->
+    <div
+      class="flex-1 max-w-md w-full bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow"
+    >
+      <p class="font-semibold text-gray-800 text-lg mb-4 text-center border-b pb-2">
+        Akun Demo
+      </p>
+
       <div class="grid sm:grid-cols-2 gap-4">
-        <div class="rounded-xl border p-4">
-          <p class="font-medium">Admin</p>
+        <div class="rounded-xl border border-sky-100 bg-sky-50/50 p-4 hover:shadow transition">
+          <p class="font-medium text-sky-700">Admin</p>
           <ul class="mt-2 text-sm text-gray-700 space-y-1">
-            <li>Username:
-              <code class="bg-gray-100 px-2 py-0.5 rounded">admin</code>
+            <li>
+              Username:
+              <code class="bg-gray-100 px-2 py-0.5 rounded text-sky-800">admin</code>
             </li>
-            <li>Password:
-              <code class="bg-gray-100 px-2 py-0.5 rounded">$$991122</code>
+            <li>
+              Password:
+              <code class="bg-gray-100 px-2 py-0.5 rounded text-sky-800">$$991122</code>
             </li>
           </ul>
         </div>
-        <div class="rounded-xl border p-4">
-          <p class="font-medium">User</p>
+
+        <div class="rounded-xl border border-amber-100 bg-amber-50/50 p-4 hover:shadow transition">
+          <p class="font-medium text-amber-700">User</p>
           <ul class="mt-2 text-sm text-gray-700 space-y-1">
-            <li>Username:
-              <code class="bg-gray-100 px-2 py-0.5 rounded">johnd</code>
+            <li>
+              Username:
+              <code class="bg-gray-100 px-2 py-0.5 rounded text-amber-800">johnd</code>
             </li>
-            <li>Password:
-              <code class="bg-gray-100 px-2 py-0.5 rounded">m38rmF$</code>
+            <li>
+              Password:
+              <code class="bg-gray-100 px-2 py-0.5 rounded text-amber-800">m38rmF$</code>
             </li>
           </ul>
         </div>
       </div>
-      <p class="text-xs text-gray-500 mt-4">
-        Role: <b>admin</b> hanya untuk username <code>admin</code>; <b>user</b> untuk <code>johnd</code>.
+
+      <p class="text-xs text-gray-500 mt-4 text-center">
+        <b>admin</b> hanya untuk username <code>admin</code>;  
+        <b>user</b> untuk <code>johnd</code>.
       </p>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
