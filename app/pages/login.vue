@@ -3,7 +3,7 @@
     <div class="w-full max-w-md">
       <div class="rounded-t-2xl bg-gradient-to-r from-sky-500 to-sky-600 text-white px-6 py-4 shadow-sm">
         <h1 class="text-xl font-bold">Welcome back</h1>
-        <p class="text-white/90 text-sm">Silakan masuk untuk melanjutkan</p>
+        <p class="text-white/90 text-sm">Please log in to continue</p>
       </div>
 
       <!-- Card -->
@@ -79,7 +79,7 @@
       </div>
 
       <p class="text-center text-xs text-gray-500 mt-3">
-        Setelah login, kamu akan diarahkan ke halaman sebelumnya (jika ada).
+        After logging in, you will be redirected to the previous page (if any).
       </p>
     </div>
   </div>
