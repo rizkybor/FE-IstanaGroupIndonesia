@@ -261,6 +261,18 @@ function openCreate() { Object.assign(form, blank()); dlg.value?.showModal() }
 function openEdit(u: any) { Object.assign(form, u, { password: '' }); dlg.value?.showModal() }
 function closeDlg() { dlg.value?.close() }
 
+function notify(msg: string, type: 'success' | 'error' = 'success') {
+  const el = document.createElement('div')
+  el.className = [
+    'fixed bottom-6 right-6 z-[60] min-w-[220px] max-w-sm px-4 py-2 rounded-xl shadow-lg',
+    'text-sm font-medium text-white animate-fade-in-up',
+    type === 'success' ? 'bg-emerald-600' : 'bg-rose-600'
+  ].join(' ')
+  el.textContent = msg
+  document.body.appendChild(el)
+  setTimeout(() => el.remove(), 1800)
+}
+
 // async function save() {
 //   saving.value = true
 //   try {
@@ -280,61 +292,57 @@ function closeDlg() { dlg.value?.close() }
 // }
 
 async function save() {
-  if (!form.name.firstname?.trim()) {
-    alert('Harap isi First Name.')
-    return
-  }
-  if (!form.name.lastname?.trim()) {
-    alert('Harap isi Last Name.')
-    return
-  }
-  if (!form.username?.trim()) {
-    alert('Harap isi Username.')
-    return
-  }
-  if (!form.email?.trim()) {
-    alert('Harap isi Email.')
-    return
-  }
+  if (!form.name.firstname?.trim()) return notify('Harap isi First Name.', 'error')
+  if (!form.name.lastname?.trim()) return notify('Harap isi Last Name.', 'error')
+  if (!form.username?.trim()) return notify('Harap isi Username.', 'error')
+  if (!form.email?.trim()) return notify('Harap isi Email.', 'error')
 
-  // Validasi format email sederhana
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailPattern.test(form.email)) {
-    alert('Format email tidak valid.')
-    return
-  }
+  if (!emailPattern.test(form.email)) return notify('Format email tidak valid.', 'error')
 
-  // Validasi password saat create (tapi tidak wajib saat edit)
-  if (!form.id && (!form.password || form.password.length < 4)) {
-    alert('Password harus diisi minimal 4 karakter.')
-    return
-  }
+  if (!form.id && (!form.password || form.password.length < 4))
+    return notify('Password harus minimal 4 karakter.', 'error')
 
   saving.value = true
   try {
+    let res, newData
     if (form.id) {
       const payload = { ...form }
       if (!payload.password) delete payload.password
 
-      const updated = await $api(`/users/${form.id}`, { method: 'PUT', body: payload })
-      // update langsung di state agar UI tidak tunggu refresh
+      res = await $api(`/users/${form.id}`, { method: 'PUT', body: payload })
+      newData = res.data || res
       const idx = users.value.findIndex((u) => u.id === form.id)
-      if (idx !== -1) users.value[idx] = updated
+      if (idx !== -1) users.value[idx] = newData
     } else {
-      const created = await $api('/users', { method: 'POST', body: form })
-      users.value.unshift(created) // tambahkan langsung di atas
+      res = await $api('/users', { method: 'POST', body: form })
+      newData = res.data || res
+      users.value.unshift(newData)
     }
+
+    const message = res.message || res.statusText || (form.id ? 'User berhasil diperbarui ✅' : 'User baru berhasil dibuat 🎉')
+    notify(message, 'success')
     closeDlg()
+  } catch (e: any) {
+    const errMsg = e?.data?.message || e?.message || 'Gagal menyimpan data.'
+    notify(errMsg, 'error')
   } finally {
     saving.value = false
   }
 }
 
 async function removeUser(id: number) {
-  if (!confirm('Delete this user?')) return
-  await $api(`/users/${id}`, { method: 'DELETE' })
-  const idx = users.value.findIndex((u) => u.id === id)
-  if (idx !== -1) users.value.splice(idx, 1)
+  if (!confirm('Yakin ingin menghapus user ini?')) return
+  try {
+    const res = await $api(`/users/${id}`, { method: 'DELETE' })
+    const idx = users.value.findIndex((u) => u.id === id)
+    if (idx !== -1) users.value.splice(idx, 1)
+    const message = res.message || res.statusText || 'User berhasil dihapus 🗑️'
+    notify(message, 'success')
+  } catch (e: any) {
+    const errMsg = e?.data?.message || e?.message || 'Gagal menghapus user.'
+    notify(errMsg, 'error')
+  }
 }
 
 /** DynamicSortIcon */

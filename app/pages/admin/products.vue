@@ -227,6 +227,18 @@ function openEdit(p: any) {
 }
 function closeDlg() { dlg.value?.close() }
 
+function notify(msg: string, type: 'success' | 'error' = 'success') {
+  const el = document.createElement('div')
+  el.className = [
+    'fixed bottom-6 right-6 z-[60] min-w-[220px] max-w-sm px-4 py-2 rounded-xl shadow-lg',
+    'text-sm font-medium text-white animate-fade-in-up',
+    type === 'success' ? 'bg-emerald-600' : 'bg-rose-600'
+  ].join(' ')
+  el.textContent = msg
+  document.body.appendChild(el)
+  setTimeout(() => el.remove(), 1800)
+}
+
 // async function save() {
 //   saving.value = true
 //   try {
@@ -247,36 +259,31 @@ function closeDlg() { dlg.value?.close() }
 // }
 
 async function save() {
-  if (!form.title?.trim()) {
-    alert('Harap isi judul produk.')
-    return
-  }
-  if (form.price === null || form.price === undefined || form.price <= 0) {
-    alert('Harga produk harus lebih dari 0.')
-    return
-  }
-  if (!form.category?.trim()) {
-    alert('Harap isi kategori produk.')
-    return
-  }
-  if (!form.image?.trim()) {
-    alert('Harap isi URL gambar produk.')
-    return
-  }
+  if (!form.title?.trim()) return notify('Harap isi judul produk.', 'error')
+  if (form.price <= 0) return notify('Harga produk harus lebih dari 0.', 'error')
+  if (!form.category?.trim()) return notify('Harap isi kategori produk.', 'error')
+  if (!form.image?.trim()) return notify('Harap isi URL gambar produk.', 'error')
 
   saving.value = true
-  
   try {
-    let newData
+    let res, newData
     if (form.id) {
-      newData = await $api(`/products/${form.id}`, { method: 'PUT', body: form })
+      res = await $api(`/products/${form.id}`, { method: 'PUT', body: form })
+      newData = res.data || res
       const idx = products.value.findIndex(p => p.id === form.id)
       if (idx !== -1) products.value[idx] = newData
     } else {
-      newData = await $api('/products', { method: 'POST', body: form })
+      res = await $api('/products', { method: 'POST', body: form })
+      newData = res.data || res
       products.value.unshift(newData)
     }
+
+    const message = res.message || res.statusText || 'Berhasil disimpan!'
+    notify(message, 'success')
     closeDlg()
+  } catch (e: any) {
+    const errMsg = e?.data?.message || e?.message || 'Gagal menyimpan data.'
+    notify(errMsg, 'error')
   } finally {
     saving.value = false
   }
@@ -284,9 +291,16 @@ async function save() {
 
 async function remove(id: number) {
   if (!confirm('Yakin ingin menghapus produk ini?')) return
-  await $api(`/products/${id}`, { method: 'DELETE' })
-  const idx = products.value.findIndex(p => p.id === id)
-  if (idx !== -1) products.value.splice(idx, 1)
+  try {
+    const res = await $api(`/products/${id}`, { method: 'DELETE' })
+    const idx = products.value.findIndex(p => p.id === id)
+    if (idx !== -1) products.value.splice(idx, 1)
+    const message = res.message || res.statusText || 'Produk berhasil dihapus.'
+    notify(message, 'success')
+  } catch (e: any) {
+    const errMsg = e?.data?.message || e?.message || 'Gagal menghapus produk.'
+    notify(errMsg, 'error')
+  }
 }
 
 /** DynamicSortIcon */
