@@ -17,7 +17,6 @@
             <option value="price_desc">{{ $t('catalog.sorting.priceDesc') }}</option>
             <option value="title_asc">{{ $t('catalog.sorting.titleAsc') }}</option>
             <option value="title_desc">{{ $t('catalog.sorting.titleDesc') }}</option>
-            <option value="rating_desc">{{ $t('catalog.sorting.ratingDesc') }}</option>
           </select>
           <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
             <i class="i-heroicons-chevron-down-20-solid w-5 h-5"></i>
@@ -97,7 +96,7 @@ const perPage = 8
 const page = ref(1)
 
 /** 🔽 Sorting option */
-const sortOption = ref<'relevance' | 'price_asc' | 'price_desc' | 'title_asc' | 'title_desc' | 'rating_desc'>('relevance')
+const sortOption = ref<'relevance' | 'price_asc' | 'price_desc' | 'title_asc' | 'title_desc'>('relevance')
 
 /** Filtered list */
 const filtered = computed(() => {
@@ -119,9 +118,6 @@ const sorted = computed<any[]>(() => {
       return arr.sort((a, b) => String(a.title ?? '').localeCompare(String(b.title ?? ''), undefined, { sensitivity: 'base' }))
     case 'title_desc':
       return arr.sort((a, b) => String(b.title ?? '').localeCompare(String(a.title ?? ''), undefined, { sensitivity: 'base' }))
-    case 'rating_desc':
-      // FakeStoreAPI: product.rating?.rate
-      return arr.sort((a, b) => Number(b?.rating?.rate ?? 0) - Number(a?.rating?.rate ?? 0))
     default:
       return arr // relevance: keep API order
   }
