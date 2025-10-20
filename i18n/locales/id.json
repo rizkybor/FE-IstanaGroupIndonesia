@@ -27,5 +27,267 @@
       "password": "Sandi",
       "note": "Login admin dengan \"admin\"; untuk pengguna pakai \"johnd\"."
     }
+  },
+  "login": {
+    "title": "Selamat Datang Kembali",
+    "subtitle": "Silakan masuk untuk melanjutkan",
+    "username": "Nama Pengguna",
+    "password": "Kata Sandi",
+    "remember": "Ingat saya",
+    "backHome": "Kembali ke Beranda",
+    "signin": "Masuk",
+    "error": "Login gagal. Periksa username atau kata sandi Anda.",
+    "redirectNotice": "Setelah login, Anda akan diarahkan ke halaman sebelumnya (jika ada).",
+    "demoTitle": "Isi cepat akun demo:",
+    "admin": "Admin (admin/$$991122)",
+    "user": "Pengguna (johnd/m38rmF$)",
+    "showPassword": "Tampilkan kata sandi",
+    "hidePassword": "Sembunyikan kata sandi"
+  },
+  "catalog": {
+    "title": "Katalog Produk",
+    "subtitle": "Jelajahi berbagai produk menarik dari Fake Store API",
+    "sorting": {
+      "label": "Pengurutan",
+      "relevance": "Default",
+      "priceAsc": "Harga: Rendah → Tinggi",
+      "priceDesc": "Harga: Tinggi → Rendah",
+      "titleAsc": "Judul: A → Z",
+      "titleDesc": "Judul: Z → A",
+      "ratingDesc": "Rating: Tinggi → Rendah"
+    },
+    "searchPlaceholder": "🔍 Cari produk...",
+    "errorLoading": "Terjadi kesalahan saat memuat produk.",
+    "empty": "Produk tidak ditemukan.",
+    "pagination": {
+      "prev": "‹ Sebelumnya",
+      "next": "Berikutnya ›"
+    },
+    "toast": {
+      "added": "Ditambahkan ke keranjang"
+    }
+  },
+  "product": {
+    "addToCart": "Tambahkan ke keranjang",
+    "badge": { "new": "BARU" }
+  },
+  "cart": {
+    "title": "Keranjang Anda",
+    "empty": "Keranjang kosong.",
+    "shopNow": "Belanja sekarang",
+    "price": "Harga",
+    "decrease": "Kurangi jumlah",
+    "increase": "Tambah jumlah",
+    "remove": "Hapus",
+    "orderSummary": "Ringkasan Pesanan",
+    "items": "Item",
+    "itemsCount": "Item ({count})",
+    "estimatedTax": "Perkiraan Pajak",
+    "shipping": "Pengiriman",
+    "shippingFree": "Gratis",
+    "total": "Total",
+    "proceed": "Lanjut ke Pembayaran",
+    "messageSample": "Item telah diperbarui."
+  },
+  "checkout": {
+    "stepper": {
+      "cart": "Keranjang",
+      "checkout": "Checkout",
+      "confirm": "Konfirmasi"
+    },
+    "title": "Checkout",
+    "empty": "Tidak ada item. Silakan tambah produk ke keranjang.",
+    "items": {
+      "qty": "Jml",
+      "price": "Harga"
+    },
+    "shipping": {
+      "title": "Info Pengiriman",
+      "fullName": "Nama lengkap",
+      "fullNamePh": "Masukkan nama lengkap",
+      "phone": "Telepon",
+      "phonePh": "Masukkan nomor telepon",
+      "city": "Kota",
+      "cityPh": "Kota",
+      "zip": "Kode pos",
+      "zipPh": "Kode pos",
+      "address": "Alamat",
+      "addressPh": "Alamat lengkap pengiriman"
+    },
+    "validation": {
+      "required": "Wajib diisi",
+      "phone": "Nomor telepon tidak valid",
+      "zip": "Kode pos tidak valid"
+    },
+    "summary": {
+      "title": "Ringkasan Pesanan",
+      "subtotal": "Subtotal",
+      "tax": "Perkiraan Pajak",
+      "shipping": "Pengiriman",
+      "shippingFree": "Gratis",
+      "total": "Total"
+    },
+    "actions": {
+      "confirm": "Konfirmasi Pesanan",
+      "processing": "Memproses…"
+    },
+    "notice": "Dengan melanjutkan, Anda setuju dengan simulasi transaksi.",
+    "success": {
+      "title": "Pesanan Terkonfirmasi",
+      "desc": "Pesanan berhasil dibuat di FakeStore. ID pesanan:",
+      "shopAgain": "Belanja Lagi",
+      "backHome": "Kembali ke Beranda"
+    },
+    "thanksModal": {
+      "title": "Terima kasih sudah memesan produk ini",
+      "desc": "Pesanan kamu sedang diproses.",
+      "ok": "OK",
+      "redirectInfo": "Kamu akan diarahkan ke halaman produk…"
+    }
+  },
+  "admin": {
+    "title": "Dasbor Admin",
+    "subtitle": "Kelola data produk dan pengguna dengan cepat & mudah.",
+    "cards": {
+      "products": {
+        "title": "Kelola Produk",
+        "desc": "Buat, ubah, dan hapus produk"
+      },
+      "users": {
+        "title": "Kelola Pengguna",
+        "desc": "Buat, ubah, dan hapus pengguna"
+      }
+    }
+  },
+  "adminProducts": {
+    "title": "Kelola Produk",
+    "subtitle": "Tampilan tabel dengan sortir & paginasi.",
+    "searchPlaceholder": "🔍 Cari judul/kategori…",
+    "newBtn": "+ Produk Baru",
+    "loading": "Memuat…",
+    "error": "Gagal memuat produk.",
+    "table": {
+      "no": "#",
+      "image": "Gambar",
+      "title": "Judul",
+      "price": "Harga",
+      "category": "Kategori",
+      "actions": "Aksi",
+      "edit": "Ubah",
+      "delete": "Hapus",
+      "emptyFiltered": "Tidak ada data untuk kata kunci:"
+    },
+    "pagination": {
+      "showing": "Menampilkan",
+      "prev": "‹ Sebelumnya",
+      "next": "Berikutnya ›",
+      "perPageSuffix": "/ halaman"
+    },
+    "modal": {
+      "newTitle": "Produk Baru",
+      "editTitle": "Ubah Produk",
+      "fields": {
+        "title": "Judul",
+        "titlePh": "Judul produk",
+        "description": "Deskripsi",
+        "descriptionPh": "Deskripsi singkat…",
+        "price": "Harga",
+        "pricePh": "mis. 19.99",
+        "category": "Kategori",
+        "categoryPh": "mis. electronics",
+        "image": "URL Gambar"
+      },
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan…"
+    },
+    "confirm": {
+      "delete": "Yakin ingin menghapus produk ini?"
+    },
+    "notify": {
+      "saveSuccess": "Berhasil disimpan!",
+      "saveError": "Gagal menyimpan data.",
+      "deleteSuccess": "Produk berhasil dihapus.",
+      "deleteError": "Gagal menghapus produk.",
+      "validation": {
+        "needTitle": "Harap isi judul produk.",
+        "needPrice": "Harga produk harus lebih dari 0.",
+        "needCategory": "Harap isi kategori produk.",
+        "needImage": "Harap isi URL gambar produk."
+      }
+    }
+  },
+  "adminUsers": {
+    "title": "Kelola Pengguna",
+    "subtitle": "Tampilan tabel dengan sort, pencarian, dan paginasi.",
+    "searchPlaceholder": "🔍 Cari nama/nama pengguna/email…",
+    "newBtn": "+ Pengguna Baru",
+    "loading": "Memuat…",
+    "error": "Gagal memuat pengguna.",
+    "table": {
+      "no": "#",
+      "name": "Nama",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Telepon",
+      "actions": "Aksi",
+      "edit": "Ubah",
+      "delete": "Hapus",
+      "emptyFiltered": "Tidak ada data untuk kata kunci:"
+    },
+    "pagination": {
+      "showing": "Menampilkan",
+      "prev": "‹ Sebelumnya",
+      "next": "Berikutnya ›",
+      "perPageSuffix": "/ halaman"
+    },
+    "modal": {
+      "newTitle": "Pengguna Baru",
+      "editTitle": "Ubah Pengguna",
+      "fields": {
+        "firstname": "Nama depan",
+        "firstnamePh": "Nama depan",
+        "lastname": "Nama belakang",
+        "lastnamePh": "Nama belakang",
+        "username": "Username",
+        "usernamePh": "Username",
+        "email": "Email",
+        "emailPh": "Email",
+        "password": "Kata sandi",
+        "passwordPh": "Kata sandi",
+        "phone": "Telepon",
+        "phonePh": "Telepon",
+        "city": "Kota",
+        "cityPh": "Kota",
+        "street": "Jalan",
+        "streetPh": "Jalan",
+        "number": "Nomor Rumah",
+        "numberPh": "No.",
+        "zipcode": "Kode pos",
+        "zipcodePh": "Kode pos"
+      },
+      "requiredMark": "*",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan…"
+    },
+    "confirm": {
+      "delete": "Yakin ingin menghapus user ini?"
+    },
+    "notify": {
+      "saveSuccessNew": "User baru berhasil dibuat 🎉",
+      "saveSuccessEdit": "User berhasil diperbarui ✅",
+      "saveError": "Gagal menyimpan data.",
+      "deleteSuccess": "User berhasil dihapus 🗑️",
+      "deleteError": "Gagal menghapus user.",
+      "validation": {
+        "needFirst": "Harap isi First Name.",
+        "needLast": "Harap isi Last Name.",
+        "needUsername": "Harap isi Username.",
+        "needEmail": "Harap isi Email.",
+        "emailInvalid": "Format email tidak valid.",
+        "passwordShort": "Password harus minimal 4 karakter."
+      }
+    }
   }
 }

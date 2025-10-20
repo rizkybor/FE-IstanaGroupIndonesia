@@ -13,7 +13,7 @@ Developed using Nuxt 3 + TailwindCSS + @nuxtjs/i18n, featuring a simple cookie-b
 
 Make sure the following are installed on your system:
 
-node -v        # >= 18.17
+node -v        # >= 18.17 (compatible : using node v20.19.5 (npm v10.8.2))
 pnpm -v        # or npm / yarn
 git --version
 
