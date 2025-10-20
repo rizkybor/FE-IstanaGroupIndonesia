@@ -152,7 +152,7 @@
           </BaseButton>
 
           <p class="text-xs text-gray-500 text-center">
-            Dengan melanjutkan, Anda menyetujui simulasi transaksi.
+           By continuing, you agree to the transaction simulation.
           </p>
         </aside>
       </div>
