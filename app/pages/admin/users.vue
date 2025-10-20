@@ -355,6 +355,14 @@ const SortIcon = defineComponent({
     )
   }
 })
-
-function format(n: number) { return Number(n).toFixed(2) }
 </script>
+
+<style lang="css" scoped>
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.25s ease-out;
+}
+</style>
