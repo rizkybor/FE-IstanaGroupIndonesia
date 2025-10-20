@@ -2,17 +2,17 @@
   <section class="min-h-screen bg-gradient-to-b from-white to-sky-50/30 px-4 md:px-10 py-8">
     <div class="max-w-6xl mx-auto mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
-        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Manage Users</h1>
-        <p class="text-sm text-gray-500">Tampilan tabel dengan sort, search, dan pagination.</p>
+        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">{{ $t('adminUsers.title') }}</h1>
+        <p class="text-sm text-gray-500">{{ $t('adminUsers.subtitle') }}</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="relative">
-          <input v-model="q" placeholder="🔍 Cari nama/username/email…"
+          <input v-model="q" :placeholder="$t('adminUsers.searchPlaceholder')"
             class="w-64 rounded-xl border border-gray-200 bg-white px-4 py-2 pl-10 shadow-sm focus:ring-2 focus:ring-sky-400 focus:outline-none transition" />
           <span class="absolute left-3 top-2.5 text-gray-400">⌕</span>
         </div>
-        <BaseButton style="cursor: pointer;" variant="primary" class="shadow-md hover:shadow-lg" @click="openCreate()">+
-          New User</BaseButton>
+        <BaseButton style="cursor: pointer;" variant="primary" class="shadow-md hover:shadow-lg" @click="openCreate()">
+          {{ $t('adminUsers.newBtn') }}</BaseButton>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
     <div v-if="pending" class="flex justify-center py-16">
       <Spinner />
     </div>
-    <EmptyState v-else-if="error">Gagal memuat users.</EmptyState>
+    <EmptyState v-else-if="error">{{ $t('adminUsers.error') }}</EmptyState>
 
     <!-- Table -->
     <div v-else class="max-w-6xl mx-auto overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
@@ -29,21 +29,21 @@
           <thead class="bg-gray-50 sticky top-0 z-10">
             <tr
               class="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:text-sm [&>th]:font-semibold [&>th]:text-gray-600">
-              <th class="w-12">#</th>
+              <th class="w-12">{{ $t('adminUsers.table.no') }}</th>
               <th class="cursor-pointer select-none" @click="toggleSort('name')">
-                Name
+                {{ $t('adminUsers.table.name') }}
                 <SortIcon :active="sortKey === 'name'" :dir="sortDir" />
               </th>
               <th class="cursor-pointer select-none" @click="toggleSort('username')">
-                Username
+                {{ $t('adminUsers.table.username') }}
                 <SortIcon :active="sortKey === 'username'" :dir="sortDir" />
               </th>
               <th class="cursor-pointer select-none" @click="toggleSort('email')">
-                Email
+                {{ $t('adminUsers.table.email') }}
                 <SortIcon :active="sortKey === 'email'" :dir="sortDir" />
               </th>
-              <th class="w-48">Phone</th>
-              <th class="w-40 text-right">Actions</th>
+              <th class="w-48">{{ $t('adminUsers.table.phone') }}</th>
+              <th class="w-40 text-right">{{ $t('adminUsers.table.actions') }}</th>
             </tr>
           </thead>
           <tbody class="[&>tr]:border-t [&>tr]:border-gray-100">
@@ -89,7 +89,7 @@
           <div class="flex items-center gap-2 select-none">
             <button style="cursor: pointer;"
               class="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 transition disabled:opacity-40"
-              :disabled="page === 1" @click="goPrev">‹ Prev</button>
+              :disabled="page === 1" @click="goPrev">{{ $t('adminUsers.pagination.prev') }}</button>
             <div class="hidden sm:flex items-center gap-1">
               <button style="cursor: pointer;" v-for="n in pages" :key="n" @click="page = n"
                 class="w-8 h-8 rounded-md text-sm"
@@ -99,7 +99,7 @@
             </div>
             <button style="cursor: pointer;"
               class="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 transition disabled:opacity-40"
-              :disabled="page === pages || pages === 0" @click="goNext">Next ›</button>
+              :disabled="page === pages || pages === 0" @click="goNext">{{ $t('adminUsers.pagination.next') }}</button>
           </div>
         </div>
       </div>
@@ -110,78 +110,86 @@
       class="rounded-2xl p-0 border w-full max-w-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm">
       <form @submit.prevent="save" class="p-6 bg-white rounded-2xl space-y-4 shadow-lg">
         <h2 class="text-xl font-bold text-gray-900 border-b pb-2">
-          {{ form.id ? 'Edit User' : 'New User' }}
+          {{ form.id ? $t('adminUsers.modal.editTitle') : $t('adminUsers.modal.newTitle') }}
         </h2>
 
         <div class="grid gap-3">
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-sm font-medium text-gray-700">First name <span class="text-red-500">*</span></label>
-              <input v-model="form.name.firstname" placeholder="First name"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.firstname') }} <span
+                  class="text-red-500">*</span></label>
+              <input v-model="form.name.firstname" :placeholder="$t('adminUsers.modal.fields.firstnamePh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" required />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">Last name <span class="text-red-500">*</span></label>
-              <input v-model="form.name.lastname" placeholder="Last name"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.lastname') }} <span
+                  class="text-red-500">*</span></label>
+              <input v-model="form.name.lastname" :placeholder="$t('adminUsers.modal.fields.lastnamePh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" required />
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-sm font-medium text-gray-700">Username <span class="text-red-500">*</span></label>
-              <input v-model="form.username" placeholder="Username"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.username') }} <span
+                  class="text-red-500">*</span></label>
+              <input v-model="form.username" :placeholder="$t('adminUsers.modal.fields.usernamePh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" required />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">Email <span class="text-red-500">*</span></label>
-              <input v-model="form.email" type="email" placeholder="Email"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.email') }} <span
+                  class="text-red-500">*</span></label>
+              <input v-model="form.email" type="email" :placeholder="$t('adminUsers.modal.fields.emailPh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" required />
             </div>
           </div>
 
           <div>
             <label class="text-sm font-medium text-gray-700">
-              Password <span v-if="!form.id" class="text-red-500">*</span>
+              {{ $t('adminUsers.modal.fields.password') }} <span v-if="!form.id" class="text-red-500">*</span>
             </label>
-            <input v-model="form.password" type="password" placeholder="Password" :required="!form.id"
-              class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
+            <input v-model="form.password" type="password" :placeholder="$t('adminUsers.modal.fields.passwordPh')"
+              :required="!form.id" class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
           </div>
 
           <div>
-            <label class="text-sm font-medium text-gray-700">Phone</label>
-            <input v-model="form.phone" placeholder="Phone"
-              class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
+            <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.phone') }}</label>
+            <input v-model="form.phone" :placeholder="$t('adminUsers.modal.fields.phonePh')"
+              class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" @keydown="onKeydownDigits"
+              @input="onInputDigitsPhone" @paste="onPasteDigitsPhone" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-sm font-medium text-gray-700">City</label>
-              <input v-model="form.address.city" placeholder="City"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.city') }}</label>
+              <input v-model="form.address.city" :placeholder="$t('adminUsers.modal.fields.cityPh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">Street</label>
-              <input v-model="form.address.street" placeholder="Street"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.street') }}</label>
+              <input v-model="form.address.street" :placeholder="$t('adminUsers.modal.fields.streetPh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">Number</label>
-              <input v-model.number="form.address.number" type="number" min="0" placeholder="No."
-                class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.number') }}</label>
+              <input v-model.number="form.address.number" type="text" min="0"
+                :placeholder="$t('adminUsers.modal.fields.numberPh')"
+                class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" @keydown="onKeydownDigits"
+                @input="onInputDigitsAddress" @paste="onPasteDigitsAddress" />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">Zipcode</label>
-              <input v-model="form.address.zipcode" placeholder="Zipcode"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminUsers.modal.fields.zipcode') }}</label>
+              <input v-model="form.address.zipcode" :placeholder="$t('adminUsers.modal.fields.zipcodePh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
             </div>
           </div>
         </div>
 
         <div class="flex gap-2 justify-end pt-4 border-t">
-          <BaseButton style="cursor: pointer;" type="button" variant="ghost" @click="closeDlg">Cancel</BaseButton>
+          <BaseButton style="cursor: pointer;" type="button" variant="ghost" @click="closeDlg">{{
+            $t('adminUsers.modal.cancel') }}</BaseButton>
           <BaseButton style="cursor: pointer;" variant="primary" type="submit" class="shadow-md hover:shadow-lg">
-            {{ saving ? 'Saving…' : 'Save' }}
+            {{ saving ? $t('adminUsers.modal.saving') : $t('adminUsers.modal.save') }}
           </BaseButton>
         </div>
       </form>
@@ -256,6 +264,42 @@ const blank = () => ({
 })
 const form = reactive<any>(blank())
 const saving = ref(false)
+
+function onKeydownDigits(e: KeyboardEvent) {
+  const k = e.key
+  const ctrlCmd = e.ctrlKey || e.metaKey
+  const controlKeys = [
+    'Backspace', 'Delete', 'Tab', 'Enter', 'Escape',
+    'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'
+  ]
+  if (controlKeys.includes(k)) return
+  if (ctrlCmd && ['a', 'c', 'v', 'x', 'z', 'y'].includes(k.toLowerCase())) return
+  if (!/^\d$/.test(k)) e.preventDefault()
+}
+
+function sanitizeDigits(v: any) {
+  return String(v ?? '').replace(/\D+/g, '')
+}
+
+function onInputDigitsPhone() {
+  form.phone = sanitizeDigits(form.phone)
+}
+function onPasteDigitsPhone(e: ClipboardEvent) {
+  e.preventDefault()
+  const t = (e.clipboardData?.getData('text') || '')
+  form.phone = sanitizeDigits(t)
+}
+
+function onInputDigitsAddress() {
+  const raw = sanitizeDigits(form.address.number)
+  form.address.number = raw === '' ? '' as any : Number(raw)
+}
+function onPasteDigitsAddress(e: ClipboardEvent) {
+  e.preventDefault()
+  const t = (e.clipboardData?.getData('text') || '')
+  const raw = sanitizeDigits(t)
+  form.address.number = raw === '' ? '' as any : Number(raw)
+}
 
 function openCreate() { Object.assign(form, blank()); dlg.value?.showModal() }
 function openEdit(u: any) { Object.assign(form, u, { password: '' }); dlg.value?.showModal() }
@@ -359,9 +403,17 @@ const SortIcon = defineComponent({
 
 <style lang="css" scoped>
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .animate-fade-in-up {
   animation: fade-in-up 0.25s ease-out;
 }

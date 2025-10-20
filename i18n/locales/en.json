@@ -216,5 +216,78 @@
         "needImage": "Please enter product image URL."
       }
     }
+  },
+  "adminUsers": {
+    "title": "Manage Users",
+    "subtitle": "Table view with sorting, search, and pagination.",
+    "searchPlaceholder": "🔍 Search name/username/email…",
+    "newBtn": "+ New User",
+    "loading": "Loading…",
+    "error": "Failed to load users.",
+    "table": {
+      "no": "#",
+      "name": "Name",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Phone",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "emptyFiltered": "No data for keyword:"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "prev": "‹ Prev",
+      "next": "Next ›",
+      "perPageSuffix": "/ page"
+    },
+    "modal": {
+      "newTitle": "New User",
+      "editTitle": "Edit User",
+      "fields": {
+        "firstname": "First name",
+        "firstnamePh": "First name",
+        "lastname": "Last name",
+        "lastnamePh": "Last name",
+        "username": "Username",
+        "usernamePh": "Username",
+        "email": "Email",
+        "emailPh": "Email",
+        "password": "Password",
+        "passwordPh": "Password",
+        "phone": "Phone",
+        "phonePh": "Phone",
+        "city": "City",
+        "cityPh": "City",
+        "street": "Street",
+        "streetPh": "Street",
+        "number": "Home Number",
+        "numberPh": "No.",
+        "zipcode": "Zipcode",
+        "zipcodePh": "Zipcode"
+      },
+      "requiredMark": "*",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…"
+    },
+    "confirm": {
+      "delete": "Are you sure you want to delete this user?"
+    },
+    "notify": {
+      "saveSuccessNew": "New user created 🎉",
+      "saveSuccessEdit": "User updated ✅",
+      "saveError": "Failed to save data.",
+      "deleteSuccess": "User deleted 🗑️",
+      "deleteError": "Failed to delete user.",
+      "validation": {
+        "needFirst": "Please enter first name.",
+        "needLast": "Please enter last name.",
+        "needUsername": "Please enter username.",
+        "needEmail": "Please enter email.",
+        "emailInvalid": "Invalid email format.",
+        "passwordShort": "Password must be at least 4 characters."
+      }
+    }
   }
 }

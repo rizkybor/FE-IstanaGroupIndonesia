@@ -216,5 +216,78 @@
         "needImage": "Harap isi URL gambar produk."
       }
     }
+  },
+  "adminUsers": {
+    "title": "Kelola Pengguna",
+    "subtitle": "Tampilan tabel dengan sort, pencarian, dan paginasi.",
+    "searchPlaceholder": "🔍 Cari nama/nama pengguna/email…",
+    "newBtn": "+ Pengguna Baru",
+    "loading": "Memuat…",
+    "error": "Gagal memuat pengguna.",
+    "table": {
+      "no": "#",
+      "name": "Nama",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Telepon",
+      "actions": "Aksi",
+      "edit": "Ubah",
+      "delete": "Hapus",
+      "emptyFiltered": "Tidak ada data untuk kata kunci:"
+    },
+    "pagination": {
+      "showing": "Menampilkan",
+      "prev": "‹ Sebelumnya",
+      "next": "Berikutnya ›",
+      "perPageSuffix": "/ halaman"
+    },
+    "modal": {
+      "newTitle": "Pengguna Baru",
+      "editTitle": "Ubah Pengguna",
+      "fields": {
+        "firstname": "Nama depan",
+        "firstnamePh": "Nama depan",
+        "lastname": "Nama belakang",
+        "lastnamePh": "Nama belakang",
+        "username": "Username",
+        "usernamePh": "Username",
+        "email": "Email",
+        "emailPh": "Email",
+        "password": "Kata sandi",
+        "passwordPh": "Kata sandi",
+        "phone": "Telepon",
+        "phonePh": "Telepon",
+        "city": "Kota",
+        "cityPh": "Kota",
+        "street": "Jalan",
+        "streetPh": "Jalan",
+        "number": "Nomor Rumah",
+        "numberPh": "No.",
+        "zipcode": "Kode pos",
+        "zipcodePh": "Kode pos"
+      },
+      "requiredMark": "*",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan…"
+    },
+    "confirm": {
+      "delete": "Yakin ingin menghapus user ini?"
+    },
+    "notify": {
+      "saveSuccessNew": "User baru berhasil dibuat 🎉",
+      "saveSuccessEdit": "User berhasil diperbarui ✅",
+      "saveError": "Gagal menyimpan data.",
+      "deleteSuccess": "User berhasil dihapus 🗑️",
+      "deleteError": "Gagal menghapus user.",
+      "validation": {
+        "needFirst": "Harap isi First Name.",
+        "needLast": "Harap isi Last Name.",
+        "needUsername": "Harap isi Username.",
+        "needEmail": "Harap isi Email.",
+        "emailInvalid": "Format email tidak valid.",
+        "passwordShort": "Password harus minimal 4 karakter."
+      }
+    }
   }
 }
