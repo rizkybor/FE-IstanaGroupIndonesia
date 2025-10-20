@@ -7,7 +7,7 @@
           {{ appName }}
         </h1>
         <p class="mt-3 text-gray-600 text-lg">
-          Demo mini-app Nuxt dengan autentikasi, daftar produk, detail, cart, dan admin panel yang simpel & responsif.
+This mini-app store demo was created as part of the recruitment process at PT. Istana Group Indonesia.
         </p>
       </div>
 
@@ -43,7 +43,7 @@
       class="flex-1 max-w-md w-full bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow"
     >
       <p class="font-semibold text-gray-800 text-lg mb-4 text-center border-b pb-2">
-        Akun Demo
+        Demo Account
       </p>
 
       <div class="grid sm:grid-cols-2 gap-4">
@@ -77,8 +77,8 @@
       </div>
 
       <p class="text-xs text-gray-500 mt-4 text-center">
-        <b>admin</b> hanya untuk username <code>admin</code>;  
-        <b>user</b> untuk <code>johnd</code>.
+        login <b>admin</b> only for username <code>admin</code>;  
+        login <b>user</b> use <code>johnd</code>.
       </p>
     </div>
   </section>

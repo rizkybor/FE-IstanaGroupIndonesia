@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     fakestoreApi: process.env.FAKESTORE_API,
     public: {
-      appName: 'FakeStore Nuxt',
+      appName: 'Istana Group Store',
     },
   },
   app: {

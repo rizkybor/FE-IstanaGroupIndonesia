@@ -62,7 +62,7 @@
 
         <!-- Demo accounts -->
         <div class="mt-2 border-t pt-4">
-          <p class="text-xs text-gray-500 mb-2">Quick fill akun demo:</p>
+          <p class="text-xs text-gray-500 mb-2">Quick fill demo account:</p>
           <div class="flex gap-2">
             <button
               type="button"
