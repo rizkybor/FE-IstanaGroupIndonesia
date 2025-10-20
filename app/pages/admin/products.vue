@@ -2,17 +2,17 @@
   <section class="min-h-screen bg-gradient-to-b from-white to-sky-50/30 px-4 md:px-10 py-8">
     <div class="max-w-6xl mx-auto mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
-        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Manage Products</h1>
-        <p class="text-sm text-gray-500">Tampilan tabel dengan sort + pagination.</p>
+        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">{{ $t('adminProducts.title') }}</h1>
+        <p class="text-sm text-gray-500">{{ $t('adminProducts.subtitle') }}</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="relative">
-          <input v-model="q" placeholder="🔍 Cari judul/kategori…"
+          <input v-model="q" :placeholder="$t('adminProducts.searchPlaceholder')"
             class="w-56 rounded-xl border border-gray-200 bg-white px-4 py-2 pl-10 shadow-sm focus:ring-2 focus:ring-sky-400 focus:outline-none transition" />
           <span class="absolute left-3 top-2.5 text-gray-400">⌕</span>
         </div>
-        <BaseButton style="cursor: pointer;" variant="primary" class="shadow-md hover:shadow-lg" @click="openCreate()">+
-          New Product</BaseButton>
+        <BaseButton style="cursor: pointer;" variant="primary" class="shadow-md hover:shadow-lg" @click="openCreate()">
+          {{ $t('adminProducts.newBtn') }}</BaseButton>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
     <div v-if="pending" class="flex justify-center py-16">
       <Spinner />
     </div>
-    <EmptyState v-else-if="error">Gagal memuat products.</EmptyState>
+    <EmptyState v-else-if="error">{{ $t('adminProducts.error') }}</EmptyState>
 
     <!-- Table -->
     <div v-else class="max-w-6xl mx-auto overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
@@ -29,21 +29,21 @@
           <thead class="bg-gray-50 sticky top-0 z-10">
             <tr
               class="[&>th]:px-4 [&>th]:py-3 [&>th]:text-left [&>th]:text-sm [&>th]:font-semibold [&>th]:text-gray-600">
-              <th class="w-12">#</th>
-              <th class="w-20">Image</th>
+              <th class="w-12">{{ $t('adminProducts.table.no') }}</th>
+              <th class="w-20">{{ $t('adminProducts.table.image') }}</th>
               <th class="cursor-pointer select-none" @click="toggleSort('title')">
-                Title
+                {{ $t('adminProducts.table.title') }}
                 <SortIcon :active="sortKey === 'title'" :dir="sortDir" />
               </th>
               <th class="cursor-pointer select-none w-28" @click="toggleSort('price')">
-                Price
+                {{ $t('adminProducts.table.price') }}
                 <SortIcon :active="sortKey === 'price'" :dir="sortDir" />
               </th>
               <th class="cursor-pointer select-none w-44" @click="toggleSort('category')">
-                Category
+                {{ $t('adminProducts.table.category') }}
                 <SortIcon :active="sortKey === 'category'" :dir="sortDir" />
               </th>
-              <th class="w-40 text-right">Actions</th>
+              <th class="w-40 text-right">{{ $t('adminProducts.table.actions') }}</th>
             </tr>
           </thead>
 
@@ -60,8 +60,8 @@
               <td class="px-4 py-3 text-sm text-gray-600 capitalize">{{ p.category }}</td>
               <td class="px-4 py-3">
                 <div class="flex justify-end gap-2">
-                  <BaseButton style="cursor: pointer;" size="sm" @click="openEdit(p)">Edit</BaseButton>
-                  <BaseButton style="cursor: pointer;" size="sm" variant="ghost" @click="remove(p.id)">Delete
+                  <BaseButton style="cursor: pointer;" size="sm" @click="openEdit(p)">{{ $t('adminProducts.table.edit') }}</BaseButton>
+                  <BaseButton style="cursor: pointer;" size="sm" variant="ghost" @click="remove(p.id)">{{ $t('adminProducts.table.delete') }}
                   </BaseButton>
                 </div>
               </td>
@@ -69,7 +69,7 @@
 
             <tr v-if="paginated.length === 0">
               <td colspan="6" class="px-4 py-10 text-center text-gray-500">
-                Tidak ada data untuk kata kunci: <b>{{ q }}</b>
+                {{ $t('adminProducts.table.emptyFiltered') }} <b>{{ q }}</b>
               </td>
             </tr>
           </tbody>
@@ -79,7 +79,7 @@
       <!-- Pagination -->
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-gray-100 px-4 py-3">
         <p class="text-sm text-gray-600">
-          Showing <b>{{ startRow + 1 }}</b>–<b>{{ endRow }}</b> of <b>{{ filtered.length }}</b>
+          {{ $t('adminProducts.pagination.showing') }} <b>{{ startRow + 1 }}</b>–<b>{{ endRow }}</b> of <b>{{ filtered.length }}</b>
         </p>
 
         <div class="flex items-center gap-3">
@@ -93,7 +93,7 @@
             <button style="cursor: pointer;"
               class="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 transition disabled:opacity-40"
               :disabled="page === 1" @click="goPrev">
-              ‹ Prev
+               {{ $t('adminProducts.pagination.prev') }}
             </button>
             <div class="hidden sm:flex items-center gap-1">
               <button style="cursor: pointer;" v-for="n in pages" :key="n" @click="page = n"
@@ -105,7 +105,7 @@
             <button style="cursor: pointer;"
               class="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 transition disabled:opacity-40"
               :disabled="page === pages || pages === 0" @click="goNext">
-              Next ›
+               {{ $t('adminProducts.pagination.next') }}
             </button>
           </div>
         </div>
@@ -117,40 +117,40 @@
       class="rounded-2xl p-0 border w-full max-w-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm">
       <form @submit.prevent="save" class="p-6 bg-white rounded-2xl space-y-4 shadow-lg">
         <h2 class="text-xl font-bold text-gray-900 border-b pb-2">
-          {{ form.id ? 'Edit Product' : 'New Product' }}
+          {{ form.id ?  $t('adminProducts.modal.editTitle') : $t('adminProducts.modal.newTitle') }}
         </h2>
 
         <div class="grid gap-3">
-          <label class="text-sm font-medium text-gray-700">Title <span class="text-red-500">*</span></label>
-          <input v-model="form.title" placeholder="Product Title"
+          <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.title') }} <span class="text-red-500">*</span></label>
+          <input v-model="form.title" :placeholder="$t('adminProducts.modal.fields.titlePh')"
             class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-sky-500" required />
 
-          <label class="text-sm font-medium text-gray-700">Description</label>
-          <textarea v-model="form.description" placeholder="Short description..."
+          <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.description') }}</label>
+          <textarea v-model="form.description" :placeholder="$t('adminProducts.modal.fields.descriptionPh')"
             class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" rows="3" />
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="text-sm font-medium text-gray-700">Price <span class="text-red-500">*</span></label>
-              <input v-model.number="form.price" type="number" min="0" step="0.01" placeholder="e.g. 19.99"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.price') }} <span class="text-red-500">*</span></label>
+              <input v-model.number="form.price" type="number" min="0" step="0.01" :placeholder="$t('adminProducts.modal.fields.pricePh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" required />
             </div>
             <div>
-              <label class="text-sm font-medium text-gray-700">Category</label>
-              <input v-model="form.category" placeholder="e.g. electronics"
+              <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.category') }}</label>
+              <input v-model="form.category" :placeholder="$t('adminProducts.modal.fields.categoryPh')"
                 class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
             </div>
           </div>
 
-          <label class="text-sm font-medium text-gray-700">Image URL</label>
+          <label class="text-sm font-medium text-gray-700">{{ $t('adminProducts.modal.fields.image') }}</label>
           <input v-model="form.image" placeholder="https://example.com/image.jpg"
             class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-sky-500" />
         </div>
 
         <div class="flex gap-2 justify-end pt-4 border-t">
-          <BaseButton style="cursor: pointer;" type="button" variant="ghost" @click="closeDlg">Cancel</BaseButton>
+          <BaseButton style="cursor: pointer;" type="button" variant="ghost" @click="closeDlg">{{ $t('adminProducts.modal.cancel') }}</BaseButton>
           <BaseButton style="cursor: pointer;" variant="primary" type="submit" class="shadow-md hover:shadow-lg">
-            {{ saving ? 'Saving…' : 'Save' }}
+            {{ saving ? $t('adminProducts.modal.save') :  $t('adminProducts.modal.saving') }}
           </BaseButton>
         </div>
       </form>
@@ -182,7 +182,7 @@ function toggleSort(k: SortKey) {
   }
 }
 
-/** Derived: filtered + sorted */
+/** filtered + sorted */
 const filtered = computed(() => {
   const term = q.value.trim().toLowerCase()
   const base = term

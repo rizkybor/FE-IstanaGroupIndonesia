@@ -27,5 +27,194 @@
       "password": "Password",
       "note": "Admin login with \"admin\"; for user use \"johnd\"."
     }
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Please log in to continue",
+    "username": "Username",
+    "password": "Password",
+    "remember": "Remember me",
+    "backHome": "Back to Home",
+    "signin": "Sign In",
+    "error": "Login failed. Please check your username or password.",
+    "redirectNotice": "After logging in, you will be redirected to the previous page (if any).",
+    "demoTitle": "Quick fill demo account:",
+    "admin": "Admin (admin/$$991122)",
+    "user": "User (johnd/m38rmF$)",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "catalog": {
+    "title": "Catalog Product",
+    "subtitle": "Explore various interesting products from Fake Store API",
+    "sorting": {
+      "label": "Sorting",
+      "relevance": "Default",
+      "priceAsc": "Price: Low → High",
+      "priceDesc": "Price: High → Low",
+      "titleAsc": "Title: A → Z",
+      "titleDesc": "Title: Z → A",
+      "ratingDesc": "Rating: High → Low"
+    },
+    "searchPlaceholder": "🔍 Search products...",
+    "errorLoading": "An error occurred while loading the product.",
+    "empty": "No products found.",
+    "pagination": {
+      "prev": "‹ Prev",
+      "next": "Next ›"
+    },
+    "toast": {
+      "added": "Added to cart"
+    }
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "badge": { "new": "NEW" }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty.",
+    "shopNow": "Shop now",
+    "price": "Price",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "remove": "Remove",
+    "orderSummary": "Order Summary",
+    "items": "Items",
+    "itemsCount": "Items ({count})",
+    "estimatedTax": "Estimated Tax",
+    "shipping": "Shipping",
+    "shippingFree": "Free",
+    "total": "Total",
+    "proceed": "Proceed to Checkout",
+    "messageSample": "Items have been updated."
+  },
+  "checkout": {
+    "stepper": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "confirm": "Confirm"
+    },
+    "title": "Checkout",
+    "empty": "No items. Please add products to the cart.",
+    "items": {
+      "qty": "Qty",
+      "price": "Price"
+    },
+    "shipping": {
+      "title": "Shipping Info",
+      "fullName": "Full name",
+      "fullNamePh": "Enter full name",
+      "phone": "Phone",
+      "phonePh": "Enter phone number",
+      "city": "City",
+      "cityPh": "City",
+      "zip": "Zipcode",
+      "zipPh": "Zip code",
+      "address": "Address",
+      "addressPh": "Complete shipping address"
+    },
+    "validation": {
+      "required": "This field is mandatory",
+      "phone": "Invalid phone number",
+      "zip": "Invalid zip code"
+    },
+    "summary": {
+      "title": "Order Summary",
+      "subtotal": "Subtotal",
+      "tax": "Estimated Tax",
+      "shipping": "Shipping",
+      "shippingFree": "Free",
+      "total": "Total"
+    },
+    "actions": {
+      "confirm": "Confirm Order",
+      "processing": "Processing…"
+    },
+    "notice": "By continuing, you agree to the transaction simulation.",
+    "success": {
+      "title": "Order Confirmed",
+      "desc": "Order successfully created on FakeStore. Order ID:",
+      "shopAgain": "Shop Again",
+      "backHome": "Back to Home"
+    },
+    "thanksModal": {
+      "title": "Thank you for your order",
+      "desc": "Your order is being processed.",
+      "ok": "OK",
+      "redirectInfo": "You will be redirected to the products page…"
+    }
+  },
+   "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage products and users quickly & easily.",
+    "cards": {
+      "products": {
+        "title": "Manage Products",
+        "desc": "Create, edit, delete products"
+      },
+      "users": {
+        "title": "Manage Users",
+        "desc": "Create, edit, delete users"
+      }
+    }
+  },
+  "adminProducts": {
+    "title": "Manage Products",
+    "subtitle": "Table view with sorting & pagination.",
+    "searchPlaceholder": "🔍 Search title/category…",
+    "newBtn": "+ New Product",
+    "loading": "Loading…",
+    "error": "Failed to load products.",
+    "table": {
+      "no": "#",
+      "image": "Image",
+      "title": "Title",
+      "price": "Price",
+      "category": "Category",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "emptyFiltered": "No data for keyword:"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "prev": "‹ Prev",
+      "next": "Next ›",
+      "perPageSuffix": "/ page"
+    },
+    "modal": {
+      "newTitle": "New Product",
+      "editTitle": "Edit Product",
+      "fields": {
+        "title": "Title",
+        "titlePh": "Product title",
+        "description": "Description",
+        "descriptionPh": "Short description…",
+        "price": "Price",
+        "pricePh": "e.g. 19.99",
+        "category": "Category",
+        "categoryPh": "e.g. electronics",
+        "image": "Image URL"
+      },
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…"
+    },
+    "confirm": {
+      "delete": "Are you sure you want to delete this product?"
+    },
+    "notify": {
+      "saveSuccess": "Saved successfully!",
+      "saveError": "Failed to save data.",
+      "deleteSuccess": "Product deleted successfully.",
+      "deleteError": "Failed to delete product.",
+      "validation": {
+        "needTitle": "Please enter product title.",
+        "needPrice": "Product price must be greater than 0.",
+        "needCategory": "Please enter product category.",
+        "needImage": "Please enter product image URL."
+      }
+    }
   }
 }

@@ -13,7 +13,7 @@ Dibangun dengan Nuxt 3 + TailwindCSS + @nuxtjs/i18n dan sistem autentikasi seder
 
 Pastikan sudah ter-install:
 
-node -v        # >= 18.17
+node -v        # >= 18.17 (cocok : gunakan node v20.19.5 (npm v10.8.2))
 pnpm -v        # atau npm / yarn
 git --version
 

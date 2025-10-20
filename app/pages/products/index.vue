@@ -2,8 +2,8 @@
   <div class="min-h-screen bg-gradient-to-b from-sky-50/40 to-white px-4 md:px-10 py-8">
     <div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">🛍️ Catalog Product</h1>
-        <p class="text-sm text-gray-500">Explore various interesting products from Fake Store API</p>
+        <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">{{ $t('catalog.title') }}</h1>
+        <p class="text-sm text-gray-500">{{ $t('catalog.subtitle') }}</p>
       </div>
 
       <div class="flex w-full md:w-auto items-stretch md:items-center gap-3">
@@ -12,12 +12,12 @@
           <select style="cursor: pointer;" v-model="sortOption"
             class="w-full appearance-none rounded-2xl border border-gray-200 bg-white px-4 py-2 pr-10 shadow-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400 transition"
             aria-label="Sorting">
-            <option value="relevance">Default</option>
-            <option value="price_asc">Price: Low → High</option>
-            <option value="price_desc">Price: High → Low</option>
-            <option value="title_asc">Title: A → Z</option>
-            <option value="title_desc">Title: Z → A</option>
-            <option value="rating_desc">Rating: High → Low</option>
+            <option value="relevance">{{ $t('catalog.sorting.relevance') }}</option>
+            <option value="price_asc">{{ $t('catalog.sorting.priceAsc') }}</option>
+            <option value="price_desc">{{ $t('catalog.sorting.priceDesc') }}</option>
+            <option value="title_asc">{{ $t('catalog.sorting.titleAsc') }}</option>
+            <option value="title_desc">{{ $t('catalog.sorting.titleDesc') }}</option>
+            <option value="rating_desc">{{ $t('catalog.sorting.ratingDesc') }}</option>
           </select>
           <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
             <i class="i-heroicons-chevron-down-20-solid w-5 h-5"></i>
@@ -26,7 +26,7 @@
 
         <!-- Search -->
         <div class="relative grow md:w-72">
-          <input v-model="q" type="text" placeholder="🔍 Cari produk..."
+          <input v-model="q" type="text" :placeholder="$t('catalog.searchPlaceholder')"
             class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-2 pl-10 shadow-sm focus:ring-2 focus:ring-sky-400 focus:outline-none transition" />
           <span class="absolute left-3 top-2.5 text-gray-400">
             <i class="i-heroicons-magnifying-glass w-5 h-5"></i>
@@ -42,12 +42,12 @@
 
     <!-- Error -->
     <EmptyState v-else-if="error">
-      An error occurred while loading the product.
+      {{ $t('catalog.errorLoading') }}
     </EmptyState>
 
     <!-- Empty -->
     <EmptyState v-else-if="sorted.length === 0">
-      No products found.
+      {{ $t('catalog.empty') }}
     </EmptyState>
 
     <!-- Grid -->
@@ -63,7 +63,7 @@
       <button
         class="px-4 py-2 rounded-lg bg-white border border-gray-200 shadow-sm hover:bg-gray-50 transition disabled:opacity-40"
         style="cursor: pointer" :disabled="page === 1" @click="goPrev">
-        ‹ Prev
+        {{ $t('catalog.pagination.prev') }}
       </button>
 
       <div class="flex items-center gap-2">
@@ -78,7 +78,7 @@
       <button
         class="px-4 py-2 rounded-lg bg-white border border-gray-200 shadow-sm hover:bg-gray-50 transition disabled:opacity-40"
         style="cursor: pointer" :disabled="page === pages" @click="goNext">
-        Next ›
+        {{ $t('catalog.pagination.next') }}
       </button>
     </div>
   </div>
@@ -158,7 +158,7 @@ function addToCart(item: any) {
     return
   }
   cart.value.push({ ...item, qty: 1 })
-  toast('Added to cart')
+  toast($t('catalog.toast.added') as string)
 }
 
 /** Tiny toast */
@@ -177,6 +177,7 @@ function toast(msg: string) {
 .fade-leave-active {
   transition: all 0.3s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
@@ -184,8 +185,18 @@ function toast(msg: string) {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-fade-in { animation: fade-in 0.25s ease-out; }
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
+}
 </style>

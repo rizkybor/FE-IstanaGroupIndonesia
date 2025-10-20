@@ -3,9 +3,9 @@
     <div class="max-w-6xl mx-auto">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Admin Dashboard</h1>
+          <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">{{ $t('admin.title') }}</h1>
           <p class="text-sm text-gray-500 mt-1">
-            Kelola data produk dan pengguna dengan cepat & mudah.
+{{ $t('admin.subtitle') }}
           </p>
         </div>
       </div>
@@ -33,8 +33,8 @@
             </div>
 
             <div class="flex-1">
-              <p class="font-semibold text-gray-900">Manage Products</p>
-              <p class="text-sm text-gray-500">Create, edit, delete products</p>
+              <p class="font-semibold text-gray-900">{{ $t('admin.cards.products.title') }}</p>
+              <p class="text-sm text-gray-500">{{ $t('admin.cards.products.desc') }}</p>
             </div>
 
             <div
@@ -70,8 +70,8 @@
             </div>
 
             <div class="flex-1">
-              <p class="font-semibold text-gray-900">Manage Users</p>
-              <p class="text-sm text-gray-500">Create, edit, delete users</p>
+              <p class="font-semibold text-gray-900">{{ $t('admin.cards.users.title') }}</p>
+              <p class="text-sm text-gray-500">{{ $t('admin.cards.users.desc') }}</p>
             </div>
 
             <div
