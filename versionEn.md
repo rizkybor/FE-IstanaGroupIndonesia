@@ -75,17 +75,12 @@ Open the browser and visit: http://localhost:3000
 ├─ nuxt.config.ts
 └─ package.json
 
-
 ⸻
 
-🧪 Quick Login Test (Mock)
+# Additional Info
 
-Open DevTools → Console and run:
-
-document.cookie = "fs_token=test; path=/"
-document.cookie = "fs_role=admin; path=/"
-
-Then refresh the page — the user will be considered logged in.
+Sort, Search, and Pagination features are available at the '/products' path.
+Multi-Language features are available at the '/''
 
 ⸻
 
