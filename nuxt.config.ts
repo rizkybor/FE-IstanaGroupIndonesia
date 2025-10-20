@@ -18,4 +18,18 @@ export default defineNuxtConfig({
       meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
   },
+  modules: [
+    '@nuxtjs/i18n',
+  ],
+  i18n: {
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'id', name: 'Bahasa', file: 'id.json' }
+    ],
+    defaultLocale: 'id',
+    strategy: 'prefix_except_default',
+    langDir: 'locales',               
+    detectBrowserLanguage: { useCookie: true, fallbackLocale: 'en' },
+    // lazy: true,
+  }
 });
