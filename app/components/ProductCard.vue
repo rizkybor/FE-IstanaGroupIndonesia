@@ -21,19 +21,19 @@
                transition-all duration-200 ease-in-out active:scale-[0.97]" style="cursor: pointer;"
         @click="add({ ...product, qty: 1 })">
         <div class="flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8h13.2L17 13M7 13h10" />
+              d="M2.25 2.25h1.386c.51 0 .955.343 1.09.835L5.25 6.75m0 0h15.75l-1.5 8.25H6.75m-1.5-8.25l1.5 8.25m0 0a2.25 2.25 0 104.5 0m-4.5 0h4.5" />
           </svg>
-          <span>Add to Cart</span>
+          <span>{{ $t('product.addToCart') }}</span>
         </div>
       </BaseButton>
     </div>
 
     <div v-if="product.isNew"
       class="absolute top-3 right-3 bg-sky-100 text-sky-700 text-xs font-medium px-2 py-0.5 rounded-full">
-      NEW
+      {{ $t('product.badge.new') }}
     </div>
   </div>
 </template>

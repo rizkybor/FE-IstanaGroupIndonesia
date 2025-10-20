@@ -5,12 +5,12 @@
       <ol class="flex items-center gap-3 text-sm text-gray-500">
         <li class="flex items-center gap-2">
           <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs">1</span>
-          Cart
+          {{ $t('checkout.stepper.cart') }}
         </li>
         <span class="w-8 h-[2px] bg-gray-200"></span>
         <li class="flex items-center gap-2 font-semibold text-sky-700">
           <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs">2</span>
-          Checkout
+          {{ $t('checkout.stepper.checkout') }}
         </li>
         <span class="w-8 h-[2px] bg-gray-200"></span>
         <li class="flex items-center gap-2">
@@ -18,17 +18,18 @@
             'w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition',
             currentStep === 3 ? 'bg-sky-600 text-white' : 'bg-gray-200 text-gray-600'
           ]">3</span>
-          <span :class="currentStep === 3 ? 'text-sky-700 font-semibold' : ''">Confirm</span>
+          <span :class="currentStep === 3 ? 'text-sky-700 font-semibold' : ''">{{ $t('checkout.stepper.confirm')
+          }}</span>
         </li>
       </ol>
     </div>
 
     <div class="max-w-5xl mx-auto">
-      <h1 class="text-2xl md:text-3xl font-extrabold mb-4">Checkout</h1>
+      <h1 class="text-2xl md:text-3xl font-extrabold mb-4">{{ $t('checkout.title') }}</h1>
 
       <!-- Empty -->
       <EmptyState v-if="items.length === 0">
-        Tidak ada item. Silakan tambah produk ke cart.
+        {{ $t('checkout.empty') }}
       </EmptyState>
 
       <!-- Success -->
@@ -37,17 +38,17 @@
         <div class="mx-auto mb-3 h-12 w-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center">
           ✓
         </div>
-        <h2 class="text-xl font-bold">Order Confirmed</h2>
+        <h2 class="text-xl font-bold">{{ $t('checkout.success.title') }}</h2>
         <p class="text-gray-600 mt-1">
-          Order berhasil dibuat di FakeStore. ID pesanan:
+          {{ $t('checkout.success.desc') }}
           <span class="font-semibold text-gray-800">#{{ done.id }}</span>
         </p>
         <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
           <NuxtLink to="/products">
-            <BaseButton class="px-6">Belanja Lagi</BaseButton>
+            <BaseButton class="px-6">{{ $t('checkout.success.shopAgain') }}</BaseButton>
           </NuxtLink>
           <NuxtLink to="/">
-            <BaseButton variant="ghost" class="px-6">Kembali ke Beranda</BaseButton>
+            <BaseButton variant="ghost" class="px-6">{{ $t('checkout.success.backHome') }}</BaseButton>
           </NuxtLink>
         </div>
       </div>
@@ -63,55 +64,56 @@
               <p class="font-semibold line-clamp-2">{{ it.title }}</p>
               <p class="text-sm text-gray-500 mt-0.5">$ {{ format(it.price) }}</p>
             </div>
-            <span class="text-sm bg-gray-100 px-3 py-1 rounded-full">Qty: {{ it.qty }}</span>
+            <span class="text-sm bg-gray-100 px-3 py-1 rounded-full"> {{ $t('checkout.items.qty') }}: {{ it.qty
+              }}</span>
             <div class="w-24 text-right font-semibold">$ {{ format(it.price * (it.qty ?? 1)) }}</div>
           </div>
 
           <div ref="shippingRef" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
-            <h3 class="font-semibold">Shipping Info</h3>
+            <h3 class="font-semibold">{{ $t('checkout.shipping.title') }}</h3>
             <div class="grid sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-sm font-medium mb-1">
-                  Full name <span class="text-red-500">*</span>
+                  {{ $t('checkout.shipping.fullName') }} <span class="text-red-500">*</span>
                 </label>
-                <input v-model.trim="shipping.fullName" placeholder="Masukkan nama lengkap"
+                <input v-model.trim="shipping.fullName" :placeholder="$t('checkout.shipping.fullNamePh')"
                   :class="inputClass(errors.fullName)" @blur="touch('fullName')" />
                 <p v-if="errors.fullName" class="mt-1 text-xs text-red-600">{{ errors.fullName }}</p>
               </div>
 
               <div>
                 <label class="block text-sm font-medium mb-1">
-                  Phone <span class="text-red-500">*</span>
+                  {{ $t('checkout.shipping.phone') }} <span class="text-red-500">*</span>
                 </label>
-                <input v-model.trim="shipping.phone" placeholder="Masukkan nomor telepon"
+                <input v-model.trim="shipping.phone" :placeholder="$t('checkout.shipping.phonePh')"
                   :class="inputClass(errors.phone)" @blur="touch('phone')" />
                 <p v-if="errors.phone" class="mt-1 text-xs text-red-600">{{ errors.phone }}</p>
               </div>
 
               <div>
                 <label class="block text-sm font-medium mb-1">
-                  City <span class="text-red-500">*</span>
+                  {{ $t('checkout.shipping.city') }} <span class="text-red-500">*</span>
                 </label>
-                <input v-model.trim="shipping.city" placeholder="Kota" :class="inputClass(errors.city)"
-                  @blur="touch('city')" />
+                <input v-model.trim="shipping.city" :placeholder="$t('checkout.shipping.cityPh')"
+                  :class="inputClass(errors.city)" @blur="touch('city')" />
                 <p v-if="errors.city" class="mt-1 text-xs text-red-600">{{ errors.city }}</p>
               </div>
 
               <div>
                 <label class="block text-sm font-medium mb-1">
-                  Zipcode <span class="text-red-500">*</span>
+                  {{ $t('checkout.shipping.zip') }} <span class="text-red-500">*</span>
                 </label>
-                <input v-model.trim="shipping.zip" placeholder="Kode pos" :class="inputClass(errors.zip)"
-                  @blur="touch('zip')" />
+                <input v-model.trim="shipping.zip" :placeholder="$t('checkout.shipping.zipPh')"
+                  :class="inputClass(errors.zip)" @blur="touch('zip')" />
                 <p v-if="errors.zip" class="mt-1 text-xs text-red-600">{{ errors.zip }}</p>
               </div>
             </div>
 
             <div>
               <label class="block text-sm font-medium mb-1">
-                Address <span class="text-red-500">*</span>
+                {{ $t('checkout.shipping.address') }} <span class="text-red-500">*</span>
               </label>
-              <textarea v-model.trim="shipping.address" placeholder="Alamat lengkap pengiriman" rows="3"
+              <textarea v-model.trim="shipping.address" :placeholder="$t('checkout.shipping.addressPh')" rows="3"
                 :class="textareaClass(errors.address)" @blur="touch('address')"></textarea>
               <p v-if="errors.address" class="mt-1 text-xs text-red-600">{{ errors.address }}</p>
             </div>
@@ -120,24 +122,24 @@
 
         <!-- Summary -->
         <aside class="md:sticky md:top-20 h-max bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
-          <h2 class="font-semibold text-lg">Order Summary</h2>
+          <h2 class="font-semibold text-lg">{{ $t('checkout.summary.title') }}</h2>
 
           <div class="space-y-2 text-sm">
             <div class="flex justify-between">
-              <span>Subtotal</span>
+              <span>{{ $t('checkout.summary.subtotal') }}</span>
               <span>$ {{ format(subtotal) }}</span>
             </div>
             <div class="flex justify-between text-gray-500">
-              <span>Estimated Tax</span>
+              <span>{{ $t('checkout.summary.tax') }}</span>
               <span>$ {{ format(tax) }}</span>
             </div>
             <div class="flex justify-between text-gray-500">
-              <span>Shipping</span>
-              <span>Free</span>
+              <span>{{ $t('checkout.summary.shipping') }}</span>
+              <span>{{ $t('checkout.summary.shippingFree') }}</span>
             </div>
             <hr class="my-2" />
             <div class="flex justify-between text-lg font-bold">
-              <span>Total</span>
+              <span>{{ $t('checkout.summary.total') }}</span>
               <span>$ {{ format(total) }}</span>
             </div>
           </div>
@@ -146,13 +148,13 @@
                    shadow-md hover:shadow-lg transition disabled:opacity-60 disabled:cursor-not-allowed"
             :disabled="loading" @click="submit">
             <div class="flex items-center gap-2 justify-center">
-              <span>{{ loading ? 'Processing…' : 'Confirm Order' }}</span>
+              <span>{{ loading ? $t('checkout.actions.processing') : $t('checkout.actions.confirm') }}</span>
               <Spinner v-if="loading" />
             </div>
           </BaseButton>
 
           <p class="text-xs text-gray-500 text-center">
-           By continuing, you agree to the transaction simulation.
+            {{ $t('checkout.notice') }}
           </p>
         </aside>
       </div>
@@ -166,14 +168,14 @@
       <div class="mx-auto mb-3 h-12 w-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center">
         ✓
       </div>
-      <h3 class="text-lg font-bold">Terima kasih sudah memesan produk ini</h3>
-      <p class="text-sm text-gray-600 mt-1">Pesanan kamu sedang diproses.</p>
+      <h3 class="text-lg font-bold">{{ $t('checkout.thanksModal.title') }}</h3>
+      <p class="text-sm text-gray-600 mt-1">{{ $t('checkout.thanksModal.desc') }}</p>
 
       <div class="mt-5 flex gap-3 justify-center">
-        <BaseButton class="px-6" @click="redirectNow">OK</BaseButton>
+        <BaseButton class="px-6" @click="redirectNow">{{ $t('checkout.thanksModal.ok') }}</BaseButton>
       </div>
 
-      <p class="mt-3 text-xs text-gray-500">Kamu akan diarahkan ke halaman produk…</p>
+      <p class="mt-3 text-xs text-gray-500">{{ $t('checkout.thanksModal.redirectInfo') }}</p>
     </div>
   </div>
 </template>

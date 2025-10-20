@@ -1,10 +1,10 @@
 <template>
     <div class="min-h-screen bg-gradient-to-b from-white to-sky-50/30 px-4 md:px-10 py-8">
-        <h1 class="text-2xl md:text-3xl font-extrabold mb-6">Your Cart</h1>
+        <h1 class="text-2xl md:text-3xl font-extrabold mb-6">{{ $t('cart.title') }}</h1>
 
         <!-- Empty -->
         <EmptyState v-if="items.length === 0">
-            Keranjang kosong. <NuxtLink to="/products" class="text-sky-600 hover:underline">Belanja sekarang</NuxtLink>.
+            {{ $t('cart.empty') }} <NuxtLink to="/products" class="text-sky-600 hover:underline">{{ $t('cart.shopNow') }}</NuxtLink>.
         </EmptyState>
 
         <!-- Content -->
@@ -16,23 +16,23 @@
                     <img :src="it.image" :alt="it.title" class="h-20 w-20 object-contain bg-white rounded-xl" />
                     <div class="flex-1">
                         <p class="font-semibold line-clamp-2">{{ it.title }}</p>
-                        <p class="text-sm text-gray-500 mt-0.5">Price: $ {{ format(it.price) }}</p>
+                        <p class="text-sm text-gray-500 mt-0.5">{{ $t('cart.price') }}: $ {{ format(it.price) }}</p>
                     </div>
 
                     <div class="flex items-center gap-2">
                         <button
                             class="h-9 w-9 rounded-lg border bg-gray-50 hover:bg-gray-100 transition disabled:opacity-40"
                             style="cursor: pointer;" :disabled="it.qty <= 1" @click="dec(idx)"
-                            aria-label="Decrease">–</button>
+                            :aria-label="$t('cart.decrease')">–</button>
                         <input type="number" min="1" v-model.number="it.qty"
                             class="w-16 text-center rounded-lg border p-2" />
                         <button class="h-9 w-9 rounded-lg border bg-gray-50 hover:bg-gray-100 transition"
-                            style="cursor: pointer;" @click="inc(idx)" aria-label="Increase">+</button>
+                            style="cursor: pointer;" @click="inc(idx)" :aria-label="$t('cart.increase')">+</button>
                     </div>
 
                     <div class="w-24 text-right">
                         <p class="font-semibold">$ {{ format(lineTotal(it)) }}</p>
-                        <button class="text-xs text-gray-500 hover:underline mt-1" @click="remove(idx)">Remove</button>
+                        <button class="text-xs text-gray-500 hover:underline mt-1" @click="remove(idx)">{{ $t('cart.remove') }}</button>
                     </div>
                 </div>
             </div>
@@ -40,24 +40,24 @@
             <!-- Summary -->
             <aside
                 class="md:sticky md:top-20 h-max bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-4">
-                <h2 class="font-semibold text-lg">Order Summary</h2>
+                <h2 class="font-semibold text-lg">{{ $t('cart.orderSummary') }}</h2>
 
                 <div class="space-y-2 text-sm">
                     <div class="flex justify-between">
-                        <span>Items ({{ items.length }})</span>
+                        <span>{{ $t('cart.itemsCount', { count: items.length }) }}</span>
                         <span>$ {{ format(subtotal) }}</span>
                     </div>
                     <div class="flex justify-between text-gray-500">
-                        <span>Estimated Tax</span>
+                        <span>{{ $t('cart.estimatedTax') }}</span>
                         <span>$ {{ format(tax) }}</span>
                     </div>
                     <div class="flex justify-between text-gray-500">
-                        <span>Shipping</span>
-                        <span>Free</span>
+                        <span>{{ $t('cart.shipping') }}</span>
+                        <span>{{ $t('cart.shippingFree') }}</span>
                     </div>
                     <hr class="my-2" />
                     <div class="flex justify-between text-lg font-bold">
-                        <span>Total</span>
+                        <span>{{ $t('cart.total') }}</span>
                         <span>$ {{ format(total) }}</span>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                 <NuxtLink to="/checkout">
                     <BaseButton variant="primary" class="w-full py-3 text-base font-semibold shadow-md hover:shadow-lg"
                         style="cursor: pointer;">
-                        Proceed to Checkout
+                        {{ $t('cart.proceed') }}
                     </BaseButton>
                 </NuxtLink>
 
