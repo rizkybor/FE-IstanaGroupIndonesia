@@ -1,0 +1,31 @@
+{
+  "app": {
+    "brand": "🛍️ IstanaGroupStore",
+    "products": "Products",
+    "cart": "Cart",
+    "admin": "Admin",
+    "login": "Login",
+    "logout": "Logout",
+    "itemsInCart": "Items in cart",
+    "lang": "Language",
+    "you": "You"
+  },
+  "home": {
+    "title": "{appName}",
+    "subtitle": "This mini-app store demo was created as part of the recruitment process at PT. Istana Group Indonesia.",
+    "cta": {
+      "browse": "Browse Products",
+      "admin": "Admin Dashboard"
+    },
+    "loggedAs": "Logged in as",
+    "role": "role:",
+    "demo": {
+      "title": "Demo Account",
+      "admin": "Admin",
+      "user": "User",
+      "username": "Username",
+      "password": "Password",
+      "note": "Admin login with \"admin\"; for user use \"johnd\"."
+    }
+  }
+}

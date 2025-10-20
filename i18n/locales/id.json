@@ -1,0 +1,31 @@
+{
+  "app": {
+    "brand": "🛍️ IstanaGroupStore",
+    "products": "Produk",
+    "cart": "Keranjang",
+    "admin": "Admin",
+    "login": "Masuk",
+    "logout": "Keluar",
+    "itemsInCart": "Jumlah item di keranjang",
+    "lang": "Bahasa",
+    "you": "Anda"
+  },
+  "home": {
+    "title": "{appName}",
+    "subtitle": "Mini-app store demo ini dibuat sebagai bagian dari proses rekrutmen di PT. Istana Group Indonesia.",
+    "cta": {
+      "browse": "Lihat Produk",
+      "admin": "Dasbor Admin"
+    },
+    "loggedAs": "Masuk sebagai",
+    "role": "peran:",
+    "demo": {
+      "title": "Akun Demo",
+      "admin": "Admin",
+      "user": "Pengguna",
+      "username": "Pengguna",
+      "password": "Sandi",
+      "note": "Login admin dengan \"admin\"; untuk pengguna pakai \"johnd\"."
+    }
+  }
+}
