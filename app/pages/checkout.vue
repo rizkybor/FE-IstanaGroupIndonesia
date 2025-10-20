@@ -18,8 +18,9 @@
             'w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition',
             currentStep === 3 ? 'bg-sky-600 text-white' : 'bg-gray-200 text-gray-600'
           ]">3</span>
-          <span :class="currentStep === 3 ? 'text-sky-700 font-semibold' : ''">{{ $t('checkout.stepper.confirm')
-          }}</span>
+          <span :class="currentStep === 3 ? 'text-sky-700 font-semibold' : ''">
+            {{ $t('checkout.stepper.confirm') }}
+          </span>
         </li>
       </ol>
     </div>
@@ -40,16 +41,11 @@
         </div>
         <h2 class="text-xl font-bold">{{ $t('checkout.success.title') }}</h2>
         <p class="text-gray-600 mt-1">
-          {{ $t('checkout.success.desc') }}
-          <span class="font-semibold text-gray-800">#{{ done.id }}</span>
+          {{ $t('checkout.success.desc') }} <span class="font-semibold text-gray-800">#{{ done.id }}</span>
         </p>
         <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-          <NuxtLink to="/products">
-            <BaseButton class="px-6">{{ $t('checkout.success.shopAgain') }}</BaseButton>
-          </NuxtLink>
-          <NuxtLink to="/">
-            <BaseButton variant="ghost" class="px-6">{{ $t('checkout.success.backHome') }}</BaseButton>
-          </NuxtLink>
+          <NuxtLink to="/products"><BaseButton class="px-6">{{ $t('checkout.success.shopAgain') }}</BaseButton></NuxtLink>
+          <NuxtLink to="/"><BaseButton variant="ghost" class="px-6">{{ $t('checkout.success.backHome') }}</BaseButton></NuxtLink>
         </div>
       </div>
 
@@ -62,11 +58,16 @@
             <img :src="it.image" :alt="it.title" class="h-20 w-20 object-contain bg-white rounded-xl" />
             <div class="flex-1">
               <p class="font-semibold line-clamp-2">{{ it.title }}</p>
-              <p class="text-sm text-gray-500 mt-0.5">$ {{ format(it.price) }}</p>
+              <p class="text-sm text-gray-500 mt-0.5">
+                {{ $t('checkout.items.price') ?? $t('cart.price') }}: {{ money(it.price) }}
+              </p>
             </div>
-            <span class="text-sm bg-gray-100 px-3 py-1 rounded-full"> {{ $t('checkout.items.qty') }}: {{ it.qty
-              }}</span>
-            <div class="w-24 text-right font-semibold">$ {{ format(it.price * (it.qty ?? 1)) }}</div>
+            <span class="text-sm bg-gray-100 px-3 py-1 rounded-full">
+              {{ $t('checkout.items.qty') }}: {{ it.qty }}
+            </span>
+            <div class="w-24 text-right font-semibold">
+              {{ money(it.price * (it.qty ?? 1)) }}
+            </div>
           </div>
 
           <div ref="shippingRef" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 space-y-3">
@@ -123,15 +124,14 @@
         <!-- Summary -->
         <aside class="md:sticky md:top-20 h-max bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
           <h2 class="font-semibold text-lg">{{ $t('checkout.summary.title') }}</h2>
-
           <div class="space-y-2 text-sm">
             <div class="flex justify-between">
               <span>{{ $t('checkout.summary.subtotal') }}</span>
-              <span>$ {{ format(subtotal) }}</span>
+              <span>{{ money(subtotal) }}</span>
             </div>
             <div class="flex justify-between text-gray-500">
               <span>{{ $t('checkout.summary.tax') }}</span>
-              <span>$ {{ format(tax) }}</span>
+              <span>{{ money(tax) }}</span>
             </div>
             <div class="flex justify-between text-gray-500">
               <span>{{ $t('checkout.summary.shipping') }}</span>
@@ -140,7 +140,7 @@
             <hr class="my-2" />
             <div class="flex justify-between text-lg font-bold">
               <span>{{ $t('checkout.summary.total') }}</span>
-              <span>$ {{ format(total) }}</span>
+              <span>{{ money(total) }}</span>
             </div>
           </div>
 
@@ -162,25 +162,22 @@
   </section>
 
   <!-- Success modal -->
-  <div v-if="showThanks" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" role="dialog"
-    aria-modal="true">
+  <div v-if="showThanks" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" role="dialog" aria-modal="true">
     <div class="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl text-center">
-      <div class="mx-auto mb-3 h-12 w-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center">
-        ✓
-      </div>
+      <div class="mx-auto mb-3 h-12 w-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center">✓</div>
       <h3 class="text-lg font-bold">{{ $t('checkout.thanksModal.title') }}</h3>
       <p class="text-sm text-gray-600 mt-1">{{ $t('checkout.thanksModal.desc') }}</p>
-
       <div class="mt-5 flex gap-3 justify-center">
         <BaseButton class="px-6" @click="redirectNow">{{ $t('checkout.thanksModal.ok') }}</BaseButton>
       </div>
-
       <p class="mt-3 text-xs text-gray-500">{{ $t('checkout.thanksModal.redirectInfo') }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 const items = useState<any[]>('cart', () => [])
 const subtotal = computed(() => items.value.reduce((s, x) => s + x.price * (x.qty ?? 1), 0))
 const taxRate = 0.1
@@ -193,18 +190,32 @@ const done = ref<any>(null)
 const showThanks = ref(false)
 const router = useRouter()
 
-function format(n: number) {
-  return n.toFixed(2)
+const { locale } = useI18n()
+const CONVERT_MODE = true
+const USD_TO_IDR = 15500
+const IDR_TO_USD = 1 / USD_TO_IDR
+
+const currency = computed<'IDR' | 'USD'>(() => (locale.value === 'id' ? 'IDR' : 'USD'))
+const formatLocale = computed(() => (currency.value === 'USD' ? 'en-US' : 'id-ID'))
+
+function formatCurrency(baseUsdValue: number) {
+  const v = Number(baseUsdValue || 0)
+  const displayValue = CONVERT_MODE ? (currency.value === 'IDR' ? v * USD_TO_IDR : v) : v
+  return new Intl.NumberFormat(formatLocale.value, {
+    style: 'currency',
+    currency: currency.value,
+    minimumFractionDigits: currency.value === 'USD' ? 2 : 0
+  }).format(displayValue)
 }
 
+function money(n: number | { valueOf(): number }) {
+  const val = typeof n === 'number' ? n : Number(n.valueOf())
+  return formatCurrency(val)
+}
+
+/** Form & validation */
 const shippingRef = ref<HTMLElement | null>(null)
-const shipping = reactive({
-  fullName: '',
-  phone: '',
-  city: '',
-  zip: '',
-  address: ''
-})
+const shipping = reactive({ fullName: '', phone: '', city: '', zip: '', address: '' })
 const touched = reactive<Record<keyof typeof shipping, boolean>>({
   fullName: false, phone: false, city: false, zip: false, address: false
 })
@@ -233,7 +244,6 @@ function touch<K extends keyof typeof shipping>(key: K) {
 function validateField<K extends keyof typeof shipping>(key: K) {
   const v = String(shipping[key] ?? '').trim()
   let msg: string | null = null
-
   if (!v) {
     msg = 'This field is mandatory'
   } else {
@@ -254,17 +264,14 @@ function validateAll() {
     touched[k] = true
     validateField(k)
   })
-  return (Object.values(errors).every((e) => !e))
+  return Object.values(errors).every((e) => !e)
 }
 
 function scrollToShipping() {
-  if (shippingRef.value) {
-    shippingRef.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  if (shippingRef.value) shippingRef.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
-/** ----------------------------------------------------- */
-
+/** Submit */
 function sleep(ms: number) { return new Promise(res => setTimeout(res, ms)) }
 async function redirectNow() { await router.push('/products') }
 
@@ -273,7 +280,6 @@ async function submit() {
     scrollToShipping()
     return
   }
-
   loading.value = true
   try {
     const payload = {
@@ -285,7 +291,6 @@ async function submit() {
     const res = await $fetch('/api/carts/create', { method: 'POST', body: payload })
     done.value = res
     items.value = []
-
     currentStep.value = 3
     showThanks.value = true
     await sleep(1800)

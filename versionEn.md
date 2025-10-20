@@ -79,8 +79,8 @@ Open the browser and visit: http://localhost:3000
 
 # Additional Info
 
-Sort, Search, and Pagination features are available at the '/products' path.
-Multi-Language features are available at the '/''
+Sort, Search, and Pagination features are available.
+Multi Language Available.
 
 ⸻
 

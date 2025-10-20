@@ -1,46 +1,82 @@
 <template>
-  <div class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 
-           bg-white p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out h-full">
+  <div
+    class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-gray-100 
+           bg-white p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out h-full"
+  >
     <NuxtLink :to="`/products/${product.id}`" class="flex-1 block">
       <div class="aspect-square w-full overflow-hidden rounded-xl bg-gray-50">
-        <img :src="product.image" :alt="product.title"
-          class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105" />
+        <img
+          :src="product.image"
+          :alt="product.title"
+          class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
 
       <div class="mt-4 space-y-1">
         <h3
-          class="line-clamp-2 text-sm sm:text-base font-semibold text-gray-800 group-hover:text-sky-700 group-hover:underline transition">
+          class="line-clamp-2 text-sm sm:text-base font-semibold text-gray-800 group-hover:text-sky-700 group-hover:underline transition"
+        >
           {{ product.title }}
         </h3>
-        <p class="text-sky-700 font-bold text-lg">$ {{ product.price.toFixed(2) }}</p>
+
+        <p class="text-sky-700 font-bold text-lg">
+          {{ product._priceText ?? displayPrice(product.price) }}
+        </p>
       </div>
     </NuxtLink>
 
     <div class="mt-4">
-      <BaseButton v-if="role !== 'admin'" class="w-full py-2 font-medium rounded-xl bg-sky-600 hover:bg-sky-700 text-white shadow-md
-               transition-all duration-200 ease-in-out active:scale-[0.97]" style="cursor: pointer;"
-        @click="add({ ...product, qty: 1 })">
+      <BaseButton
+        v-if="role !== 'admin'"
+        class="w-full py-2 font-medium rounded-xl bg-sky-600 hover:bg-sky-700 text-white shadow-md
+               transition-all duration-200 ease-in-out active:scale-[0.97]"
+        style="cursor: pointer;"
+        @click="add({ ...product, qty: 1 })"
+      >
         <div class="flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-5 h-5">
+               stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round"
-              d="M2.25 2.25h1.386c.51 0 .955.343 1.09.835L5.25 6.75m0 0h15.75l-1.5 8.25H6.75m-1.5-8.25l1.5 8.25m0 0a2.25 2.25 0 104.5 0m-4.5 0h4.5" />
+                  d="M2.25 2.25h1.386c.51 0 .955.343 1.09.835L5.25 6.75m0 0h15.75l-1.5 8.25H6.75m-1.5-8.25l1.5 8.25m0 0a2.25 2.25 0 104.5 0m-4.5 0h4.5" />
           </svg>
           <span>{{ $t('product.addToCart') }}</span>
         </div>
       </BaseButton>
     </div>
 
-    <div v-if="product.isNew"
-      class="absolute top-3 right-3 bg-sky-100 text-sky-700 text-xs font-medium px-2 py-0.5 rounded-full">
+    <div
+      v-if="product.isNew"
+      class="absolute top-3 right-3 bg-sky-100 text-sky-700 text-xs font-medium px-2 py-0.5 rounded-full"
+    >
       {{ $t('product.badge.new') }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 const { role } = useAuth()
 const { add } = useCart()
-defineProps<{ product: any }>()
-defineEmits(['add'])
+const props = defineProps<{ product: any }>()
+
+const { locale } = useI18n()
+const CONVERT_MODE = true
+const USD_TO_IDR = 15500
+
+const currency = computed<'IDR' | 'USD'>(() => (locale.value === 'id' ? 'IDR' : 'USD'))
+const formatLocale = computed(() => (currency.value === 'USD' ? 'en-US' : 'id-ID'))
+
+function displayPrice(baseUsdValue: number) {
+  const v = Number(baseUsdValue || 0)
+  const displayValue = CONVERT_MODE
+    ? (currency.value === 'IDR' ? v * USD_TO_IDR : v)
+    : v
+
+  return new Intl.NumberFormat(formatLocale.value, {
+    style: 'currency',
+    currency: currency.value,
+    minimumFractionDigits: currency.value === 'USD' ? 2 : 0
+  }).format(displayValue)
+}
 </script>
