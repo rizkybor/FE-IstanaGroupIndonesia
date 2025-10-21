@@ -69,7 +69,8 @@
   },
   "product": {
     "addToCart": "Add to Cart",
-    "badge": { "new": "NEW" }
+    "badge": { "new": "NEW" },
+    "back": "Back to product page"
   },
   "cart": {
     "title": "Your Cart",

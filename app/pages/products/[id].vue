@@ -47,7 +47,7 @@
           <NuxtLink to="/products">
             <BaseButton variant="ghost" class="flex-1 py-3 text-lg border-gray-300 hover:bg-gray-50 transition"
               style="cursor: pointer;">
-              ← {{ $t('common.back') }}
+              ← {{ $t('product.back') }}
             </BaseButton>
           </NuxtLink>
         </div>
