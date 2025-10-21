@@ -69,7 +69,8 @@
   },
   "product": {
     "addToCart": "Tambahkan ke keranjang",
-    "badge": { "new": "BARU" }
+    "badge": { "new": "BARU" },
+    "back": "Kembali ke halaman product"
   },
   "cart": {
     "title": "Keranjang Anda",
